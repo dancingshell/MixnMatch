@@ -35,11 +35,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+#facebook login
+gem "omniauth"
+gem 'omniauth-facebook', '1.4.0'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
