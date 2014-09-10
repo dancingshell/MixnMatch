@@ -10,13 +10,22 @@ MixnMatch::Application.routes.draw do
     resources :groups
   end
 
+<<<<<<< HEAD
+  # Spotify OAuth
+  get '/spotify' => 'static#spotify'
+=======
   #facebook callback for login
   get '/auth/:facebook/callback', to: 'sessions#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  # Spotify OAuth
-  get '/spotify' => 'static#spotify'
+
+  # You can have the root of your site routed with "root"
+  root 'static#index'
+
+  # Example of regular route:
+  #   get 'products/:id' => 'catalog#view'
+>>>>>>> f50babda80900392c7eda588d43b8077a04bcdac
 
   # Session
   resource :session, only: [:new, :create, :destroy]

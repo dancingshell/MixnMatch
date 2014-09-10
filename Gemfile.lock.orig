@@ -41,10 +41,13 @@ GEM
       multipart-post (>= 1.2, < 3)
     hashie (3.3.1)
     hike (1.2.3)
+<<<<<<< HEAD
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
+=======
     httpauth (0.2.1)
+>>>>>>> f50babda80900392c7eda588d43b8077a04bcdac
     i18n (0.6.11)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -62,7 +65,9 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.10.1)
+<<<<<<< HEAD
     multi_xml (0.5.5)
+=======
     multipart-post (2.0.0)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -78,6 +83,7 @@ GEM
     omniauth-oauth2 (1.0.3)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+>>>>>>> f50babda80900392c7eda588d43b8077a04bcdac
     pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
