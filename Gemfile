@@ -38,6 +38,7 @@ end
 #facebook login
 gem "omniauth"
 gem 'omniauth-facebook', '1.4.0'
+gem "koala", "~> 1.10.0rc"
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'

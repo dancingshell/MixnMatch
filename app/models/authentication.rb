@@ -1,5 +1,6 @@
 class Authentication < ActiveRecord::Base
 
+
   belongs_to :user
 
   def self.from_omniauth(user, auth)
@@ -8,6 +9,7 @@ class Authentication < ActiveRecord::Base
       authentication.provider = auth.provider
       authentication.uid = auth.uid
       authentication.name = auth.info.name
+      authentication.user_likes = auth.user_likes
       authentication.oauth_token = auth.credentials.token
       authentication.oauth_expires_at = Time.at(auth.credentials.expires_at)
       authentication.save!

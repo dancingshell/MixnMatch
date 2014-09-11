@@ -2,8 +2,12 @@ class StaticController < ApplicationController
 
   def index
     if current_user
-      url = HTTParty.get("https://graph.facebook.com/v2.1/#{current_user.uid}/music")
-      @music = JSON.parse(url)
+      # url = HTTParty.get("http://www.facebook.com/feeds/page.php?id=#{current_user.uid}&format=JSON")
+      url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}")
+
+      @url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}/music?access_token=#{current_user.oauth_token}&method=GET&metadata=true&format=json")
+      @music = JSON.parse(url.body)
+      # https://graph.facebook.com/me?access_token=theuseraccesstoken
     
     else
       @music = "you need to log in to see music"
