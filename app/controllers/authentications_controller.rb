@@ -1,5 +1,5 @@
 class AuthenticationsController < ApplicationController
-  require "koala"
+
 
   def index
     @authentications = current_user.authentications if current_user
@@ -18,17 +18,5 @@ class AuthenticationsController < ApplicationController
     redirect_to authentications_url
   end
 
-  def start
-    @oauth= Koala::Facebook::OAuth.new(APP_ID, APP_SECRET,REDIRECT_URI)
-    
-    oauth = Koala::Facebook::OAuth.new("consumer_token", "consumer_secret")
-    oauth.exchange_access_token_info("auth_token")
-    redirect_to @oauth.url_for_oauth_code(:permissions=>"my permissions")
-  end
-
-  def callback
-    session[:access_token] = @oauth.get_access_token(params[:code])
-    redirect_to(:action=>"my action")
-  end
 
 end
