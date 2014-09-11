@@ -13,8 +13,8 @@ class StaticController < ApplicationController
   def spotify
     # Find the access token
     res = HTTParty.post('https://accounts.spotify.com/authorize',
-      { body: { client_id: ENV['SP_CLIENT_ID'],
-        client_secret: ENV['SP_CLIENT_SECRET'],
+      { body: { client_id: ENV['SPOTIFY_CLIENT_ID'],
+        client_secret: ENV['SPOTIFY_CLIENT_SECRET'],
         code: params[:code] },
         headers: { 'Accept' => 'application/json' }
       })

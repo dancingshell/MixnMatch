@@ -78,6 +78,8 @@ GEM
     omniauth-oauth2 (1.0.3)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    omniauth-spotify (0.0.2)
+      omniauth (~> 1.0)
     pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
@@ -146,6 +148,7 @@ DEPENDENCIES
   jquery-rails
   omniauth
   omniauth-facebook (= 1.4.0)
+  omniauth-spotify
   pg
   rails (= 4.0.4)
   sass-rails (~> 4.0.2)

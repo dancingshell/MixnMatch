@@ -6,6 +6,9 @@ gem 'rails', '4.0.4'
 # HTTP Party
 gem 'httparty'
 
+# OmniAuth Spotify
+gem 'omniauth-spotify'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
