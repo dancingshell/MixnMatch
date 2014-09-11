@@ -20,6 +20,9 @@ class AuthenticationsController < ApplicationController
 
   def start
     @oauth= Koala::Facebook::OAuth.new(APP_ID, APP_SECRET,REDIRECT_URI)
+    
+    oauth = Koala::Facebook::OAuth.new("consumer_token", "consumer_secret")
+    oauth.exchange_access_token_info("auth_token")
     redirect_to @oauth.url_for_oauth_code(:permissions=>"my permissions")
   end
 

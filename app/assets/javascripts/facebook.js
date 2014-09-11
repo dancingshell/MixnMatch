@@ -5,7 +5,12 @@ window.fbAsyncInit = function() {
     status     : true, // check login status
     cookie     : true, // enable cookies to allow the server to access the session
     xfbml      : true  // parse XFBML
-  });
+     //adding permissions
+      
+    });
+  FB.login(function(response) {
+    Log.info('FB.login response', response);
+  }, {scope: 'user_likes, user_friends, publish_actions'});
 };
 
 // Load the SDK Asynchronously
@@ -20,6 +25,8 @@ window.fbAsyncInit = function() {
 function fblogin() {
   FB.getLoginStatus(function(response) {
     if(response.status == "connected") {
+     
+
       location.href =
         '/auth/facebook/callback?' +
         $.param({ signed_request: response.authResponse.signedRequest })

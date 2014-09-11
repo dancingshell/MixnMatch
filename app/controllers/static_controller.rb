@@ -3,10 +3,12 @@ class StaticController < ApplicationController
   def index
     if current_user
       # url = HTTParty.get("http://www.facebook.com/feeds/page.php?id=#{current_user.uid}&format=JSON")
-      url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}")
+      # url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}")
 
-      @url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}/music?access_token=#{current_user.oauth_token}&method=GET&metadata=true&format=json")
+      url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}/music?access_token=#{current_user.oauth_token}&method=GET&metadata=true&format=json")
       @music = JSON.parse(url.body)
+      spot_url =  HTTParty.get("https://api.spotify.com/v1/users/planetkaitlin/tracks?access_token=BQCnneB1RfY3TUU3VtMyjXUoATPTfroiFmSanI_HaNTj80279eeIDsNotpNTwFMmhcIqGpj68V2DGFWmyAuqZjoWAb9g3mG3ltFu2xsdW5OkQTAuioDJOtgGLeRNaPIjJnG")
+      @spotify = JSON.parse(spot_url.body)
       # https://graph.facebook.com/me?access_token=theuseraccesstoken
     
     else
