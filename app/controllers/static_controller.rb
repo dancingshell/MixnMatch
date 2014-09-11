@@ -6,6 +6,7 @@ class StaticController < ApplicationController
       url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}/music?access_token=#{current_user.oauth_token}&method=GET&metadata=true&limit=1000&format=json")
 
       @music = JSON.parse(url.body)
+      
       @music["data"].each do |band|
         # create new artist in DB for each band returned from FB
         artist = Artist.where(name: band["name"]).first
