@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910171905) do
+ActiveRecord::Schema.define(version: 20140911034012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(version: 20140910171905) do
   create_table "artists", force: true do |t|
     t.string   "name"
     t.string   "genre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "authentications", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -93,12 +104,13 @@ ActiveRecord::Schema.define(version: 20140910171905) do
   add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.string   "password_digest"
     t.string   "email"
-    t.string   "password"
-    t.string   "password_confirmation"
-    t.string   "zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
