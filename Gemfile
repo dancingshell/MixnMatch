@@ -38,7 +38,6 @@ end
 #facebook login
 gem "omniauth"
 gem 'omniauth-facebook'
-gem "koala", "~> 1.10.0rc"
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -47,8 +46,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'unicorn'
 gem 'foreman'
 
+#spotify login
 gem 'rspotify',  '~> 1.2.0'
-gem 'omniauth-oauth2', '~> 1.1'
+gem 'omniauth-spotify'
+gem 'omniauth-oauth2'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development

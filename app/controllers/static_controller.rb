@@ -1,7 +1,7 @@
 class StaticController < ApplicationController
 
   def index
-    if current_user
+    if current_user && current_user.provider =="facebook"
 
       url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}/music?access_token=#{current_user.oauth_token}&method=GET&metadata=true&limit=1000&format=json")
 
@@ -21,18 +21,28 @@ class StaticController < ApplicationController
   def show
 
   end
+def spotify
 
-  def spotify
-    # Find the access token
-    res = HTTParty.post('https://accounts.spotify.com/authorize',
-      { body: { client_id: ENV['SP_CLIENT_ID'],
-        client_secret: ENV['SP_CLIENT_SECRET'],
-        code: params[:code] },
-        headers: { 'Accept' => 'application/json' }
-      })
-    puts 'Spotify'
-    puts res.parsed_response.inspect
-    redirect_to repos_path(acc_token: res.parsed_response['access_token'])
+    @spotify_user = RSpotify::UserAccount.create!(request.env['omniauth.auth'])
+    # Access private data
+    spotify_user.email   #=> "example@email.com"
+
+    # Create playlist in user's Spotify account
+    # Add tracks to a playlist in user's Spotify account
+    @spotify_tracks = spotify_user.saved_tracks(limit: 50, offset: 0)
+    @spotify_tracks.each do |x|
+      x.artists.each do |y|
+        current_user.artists.create!(name: y["name"])
+      end 
+    end
+    
+
+#     <%= @spotify_user.inspect %>
+# <% @spotify2.each do |x|  %>
+# <% x.artists.each do |y|%>
+# <li><%= y.name %></li>
+# <% end %>
+# <% end %>
   end
 
 end
