@@ -11,10 +11,8 @@ class StaticController < ApplicationController
         # create new artist in DB for each band returned from FB
         artist = Artist.where(name: band["name"]).first
         Artist.create!(name: band["name"]) unless artist
-        # make a join table match between that user and their bands
-        unless UserArtist.exists?(user: current_user, artist: artist)
-          UserArtist.create!(user: current_user, artist: artist)
-        end
+        #make a join table match between that user and their bands
+        UserArtist.create!(user: current_user, artist: artist) unless UserArtist.where(user: current_user, artist: artist).first
       end
 
     end
