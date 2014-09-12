@@ -38,12 +38,14 @@ end
 #facebook login
 gem "omniauth"
 gem 'omniauth-facebook', '1.4.0'
+gem "koala", "~> 1.10.0rc"
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 gem 'unicorn'
+gem 'foreman'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
