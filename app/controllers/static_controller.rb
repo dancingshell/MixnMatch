@@ -21,21 +21,25 @@ class StaticController < ApplicationController
   def show
 
   end
-def spotify
 
-    @spotify_user = RSpotify::UserAccount.create!(request.env['omniauth.auth'])
+  def spotify_get
+
+    @spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
     # Access private data
-    spotify_user.email   #=> "example@email.com"
+    spotify_account = UserAccount.create!(email: @spotify_user.email, user: current_user)
 
+
+    @spotify_user.email   #=> "example@email.com"
+    redirect_to root_path
+    
     # Create playlist in user's Spotify account
     # Add tracks to a playlist in user's Spotify account
-    @spotify_tracks = spotify_user.saved_tracks(limit: 50, offset: 0)
-    @spotify_tracks.each do |x|
-      x.artists.each do |y|
-        current_user.artists.create!(name: y["name"])
-      end 
-    end
-    
+    # @spotify_tracks = spotify_user.saved_tracks(limit: 50, offset: 0)
+    # @spotify_tracks.each do |x|
+    #   x.artists.each do |y|
+    #     current_user.artists.create!(name: y["name"])
+    #   end 
+    # end
 
 #     <%= @spotify_user.inspect %>
 # <% @spotify2.each do |x|  %>
@@ -43,6 +47,14 @@ def spotify
 # <li><%= y.name %></li>
 # <% end %>
 # <% end %>
+  end
+
+  def create_spotify_account
+    # spotify_account = UserAccount.create!(email: @spotify_user.email, user: current_user)
+
+
+    # @spotify_user.email   #=> "example@email.com"
+    # redirect_to root_path
   end
 
 end
