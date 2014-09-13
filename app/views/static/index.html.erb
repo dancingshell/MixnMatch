@@ -7,7 +7,7 @@
     <%= current_user.inspect %>
     <%= link_to "Sign out", signout_path, id: "sign_out" %><br>Music:<br>
     <%= current_user.uid %>
-    spotify_user: <%= @spotify_use.inspect %>
+    spotify_user: <%= @spotify_user %><%= UserAccount.where(user: current_user).first.inspect %>
     <% if @music %>
       <%= link_to "Next", @music["paging"]["next"] %>
       <%= @music["data"].each do |band|  %>
