@@ -10,11 +10,10 @@ class StaticController < ApplicationController
       @music["data"].each do |band|
         # create new artist in DB for each band returned from FB
         artist = Artist.where(name: band["name"]).first
-        Artist.create!(name: band["name"]) unless artist
+        artist = Artist.create!(name: band["name"]) unless artist
         #make a join table match between that user and their bands
         UserArtist.create!(user: current_user, artist: artist) unless UserArtist.where(user: current_user, artist: artist).first
       end
-
     end
   end
 
@@ -23,7 +22,7 @@ class StaticController < ApplicationController
   end
 def spotify
 
-    @spotify_user = RSpotify::UserAccount.create!(request.env['omniauth.auth'])
+    @spotify_user = RSpotify::UserAccount.create!(current_user, request.env['omniauth.auth'])
     # Access private data
     spotify_user.email   #=> "example@email.com"
 
@@ -36,13 +35,12 @@ def spotify
       end 
     end
     
-
-#     <%= @spotify_user.inspect %>
-# <% @spotify2.each do |x|  %>
-# <% x.artists.each do |y|%>
-# <li><%= y.name %></li>
-# <% end %>
-# <% end %>
+    #     <%= @spotify_user.inspect %>
+    # <% @spotify2.each do |x|  %>
+    # <% x.artists.each do |y|%>
+    # <li><%= y.name %></li>
+    # <% end %>
+    # <% end %>
   end
 
 end
