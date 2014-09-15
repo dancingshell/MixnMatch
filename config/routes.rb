@@ -1,6 +1,7 @@
 MixnMatch::Application.routes.draw do
 
   
+  get "user_accounts/create"
   # Controllers / Views
   resources :users
   resources :artists
@@ -10,6 +11,9 @@ MixnMatch::Application.routes.draw do
   resources :events, shallow: true do
     resources :groups
   end
+
+  resources :user_accounts
+
 
   #facebook callback for login
   resources :authentications
@@ -26,7 +30,9 @@ MixnMatch::Application.routes.draw do
   # Spotify OAuth
   match '/auth/:spotify/callback', to: 'static#spotify', via: [:get, :post]
 
+  get '/rdio', to: 'static#rdio'
 
+  get '/static', to: 'static#lastfm'
   # Session
   resource :session, only: [:new, :create, :destroy]
 

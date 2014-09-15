@@ -20,39 +20,32 @@ class StaticController < ApplicationController
     end
   end
 
-  def spotify_get
-
-    @spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-    # Access private data
-    spotify_account = UserAccount.create!(email: @spotify_user.email, user: current_user)
-
-
-    @spotify_user.email   #=> "example@email.com"
-    redirect_to root_path
-    
-    # Create playlist in user's Spotify account
-    # Add tracks to a playlist in user's Spotify account
-    # @spotify_tracks = spotify_user.saved_tracks(limit: 50, offset: 0)
-    # @spotify_tracks.each do |x|
-    #   x.artists.each do |y|
-    #     current_user.artists.create!(name: y["name"])
-    #   end 
+  def rdio
+    @rdio_email = UserAccount.new # (params.require[:user_account].permit(:email))
+    @lastfm_username = UserAccount.new
+    # if @rdio_email.save
+    #   redirect_to :back
     # end
-
-#     <%= @spotify_user.inspect %>
-# <% @spotify2.each do |x|  %>
-# <% x.artists.each do |y|%>
-# <li><%= y.name %></li>
-# <% end %>
-# <% end %>
+    # rdio_creds = UserAccount.update!(email: email, username: firstName + ' ' + lastName, provider: "rdio")
+    # client = RdioApi.new(consumer_key: ENV['RDIO_KEY'], consumer_secret: ENV['RDIO_SECRET'])
+    # @user = client.findUser(email: current_user.rdio_creds.email) # replace email with instance variable
+    # @user_key = @user['key']
+    # @user_rotation = client.getHeavyRotation(user: @user_key)
+    # @user_ration.each do |rdio|
+    #   get_artists(rdio['artist'], 'rdio')
+    # end
   end
 
-  def create_spotify_account
-    # spotify_account = UserAccount.create!(email: @spotify_user.email, user: current_user)
+  def lastfm
 
-
-    # @spotify_user.email   #=> "example@email.com"
-    # redirect_to root_path
+    # url = HTTParty.get('http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=planetkaitlin&api_key=2d4ea...')
+    # @lastfm = JSON.parse(url.body)
+    # @lastfm['topartists']['artist'].each do |lastfm|
+    #   get_artists(lastfm['name'], 'lastfm')
+    # end
   end
+
+  private
+
 
 end
