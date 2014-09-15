@@ -4,7 +4,9 @@ MixnMatch::Application.routes.draw do
   get "user_accounts/create"
   # Controllers / Views
   resources :users
-  resources :artists
+  resources :artists do
+    resources :user_artists
+  end
   resources :matches, shallow: true do
     resources :messages
   end
