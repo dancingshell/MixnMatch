@@ -51,6 +51,8 @@ gem 'rspotify',  '~> 1.2.0'
 gem 'omniauth-spotify'
 gem 'omniauth-oauth2'
 
+# Rdio api call
+gem 'rdio_api'
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 

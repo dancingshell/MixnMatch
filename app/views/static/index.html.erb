@@ -1,4 +1,6 @@
-<%= link_to 'Sign in with Spotify', '/auth/spotify' %>
+<%= link_to 'Sign in with Spotify', '/auth/spotify' %><br>
+
+
 
 
 <div id="user-widget">
@@ -7,16 +9,17 @@
     <%= current_user.inspect %>
     <%= link_to "Sign out", signout_path, id: "sign_out" %><br>Music:<br>
     <%= current_user.uid %>
-    spotify_user: <%= @spotify_use.inspect %>
-    <% if @music %>
-      <%= link_to "Next", @music["paging"]["next"] %>
-      <%= @music["data"].each do |band|  %>
-        <li><%= band["name"] %></li>
-      <% end %><br>
-      <%= link_to "Previous", @music["paging"]["previous"] %>
+    spotify_user: <%= UserAccount.where(user: current_user, provider: "spotify").first %>
+    <% current_artists.each do |artist| %>
+      <li>
+        <b><%= artist.name %></b>
+        <% UserArtist.where(user: current_user, artist: artist).each do |artist| %>
+          <%= artist.provider %>
+        <% end %>
+      </li>
     <% end %>
   <% else %>
-    <a href="/auth/facebook" id="sign_in"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
+     <a href="/auth/facebook" id="sign_in"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
   <% end %>
 </div>
 
