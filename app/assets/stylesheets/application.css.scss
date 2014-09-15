@@ -11,4 +11,10 @@
  *= require_self
  *= require_tree .
  */
- @import "authentications";
+
+// Authentication
+@import 'authentications';
+
+// Bootstrap
+@import 'bootstrap';
+@import 'font-awesome';

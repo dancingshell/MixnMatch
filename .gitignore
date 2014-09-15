@@ -16,5 +16,8 @@
 /tmp
 /vendor
 .env
+<<<<<<< HEAD
 .env
 .env
+=======
+>>>>>>> f5953d0c9f6694f1d0c261dce3c13fee7e1d7a3e
