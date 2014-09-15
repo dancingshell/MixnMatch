@@ -1,2 +1,55 @@
 <h1>Users#new</h1>
 <p>Find me in app/views/users/new.html.erb</p>
+
+<!-- User Sign Up -->
+<%= form_for @user do |f| %>
+
+    <!-- User -->
+    <section data-ng-init="step1 = true" data-ng-show="step1">
+        <h2>Sign Up</h2>
+        <%= f.text_field :first_name, placeholder: 'First Name' %><br>
+        <%= f.text_field :last_name, placeholder: 'Last Name' %><br>
+        <%= f.text_field :email, placeholder: 'Email Address' %><br>
+        <%= f.password_field :password, placeholder: 'Password' %><br>
+        <%= f.password_field :password_confirmation, placeholder: 'Retype Password' %><br>
+        <br>
+        <button type="button" data-ng-click="stepNext()">Next</button>
+    </section>
+
+    <!-- User Accounts -->
+    <section data-ng-show="step2">
+        <h2>Import Music (User Accounts)</h2>
+        <p>(use email and / or username to get artists)</p>
+        <%#= f.fields_for @user_accounts do |ff| %>
+            <%#= ff.text_field :rdio, placeholder: 'Rdio user email' %>
+            <%#= ff.text_field :lastfm, placeholder: 'Last.fm username' %>
+            <label>Rdio:</label>
+            <input type="text" placeholder="Rdio user email" /><br>
+            <label>Last.fm:</label>
+            <input type="text" placeholder="Last.fm username" /><br>
+        <%# end %>
+        <br>
+        <button type="button" data-ng-click="stepPrev()">Prev</button>
+        <button type="button" data-ng-click="stepNext()">Next</button>
+    </section>
+
+    <!-- User Profile -->
+    <section data-ng-show="step3">
+        <h2>Profile Settings</h2>
+        <select>
+            <option value="straight">Straight</option>
+            <option value="gay">Gay</option>
+            <option value="bisexual">Bisexual</option>
+        </select>
+        <select>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select>
+        <br><br>
+        <button type="button" data-ng-click="stepPrev()">Prev</button>
+        <%= f.submit 'Sign Up' %>
+    </section>
+
+<% end %>
+
+<br><br>

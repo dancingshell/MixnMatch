@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
   has_many :groups, through: :user_groups
   has_many :artists, through: :user_artists
   has_many :messages, through: :matches
+
+  has_secure_password
 end
