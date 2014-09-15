@@ -1,4 +1,4 @@
-mixnApp.controller('MixnMatchApp', ['$scope', function($scope) {
+mixnApp.controller('MixnMatchCtrl', ['$scope', function($scope) {
 
   // Angular Loaded
   console.log('angular loaded!');
