@@ -21,6 +21,10 @@ class UserArtistsController < ApplicationController
   def edit
   end
 
+  def destroy
+    
+  end
+
   private
   def user_artist_params
   	params.require(:user_artist).permit(:artist_id, :user_id, :provider)

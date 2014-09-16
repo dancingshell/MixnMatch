@@ -4,12 +4,9 @@ class ArtistsController < ApplicationController
   end
 
   def create
-  	@artist = Artist.new(artist_params)
-  	if @artist.save
-  		redirect to root_path
-  	else
-  		render 'new'
-  	end
+    new_artist = params[:name]
+    get_artists(new_artist, "MixnMatch")
+  	redirect_to artists_path
   end
 
   def index
@@ -20,6 +17,13 @@ class ArtistsController < ApplicationController
   end
 
   def edit
+  end
+
+  def remove_user_artist
+    user_artist = UserArtist.where(artist_id: params[:id], user_id: current_user).first
+    raise user_artist.inspect
+    user_artist.destroy
+    redirect_to artists_path
   end
 
   private

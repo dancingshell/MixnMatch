@@ -1,9 +1,11 @@
 <h1>Artists#index</h1>
 <p>Find me in app/views/artists/index.html.erb</p>
-
+<%= link_to "Add new favorite artist", new_artist_path %>
 <% @artists.each do |artist| %>
 <li><%= artist.name %>
 	<% unless current_artists.include?(artist) %>
 		<%= link_to " + Artist", artist_user_artists_path(artist.id), method: :post %></li>
+	<% else %>
+		<%= link_to "Remove from collection", remove_user_artist_path(artist.id), method: :delete %></li>
 	<% end %>
 <% end %>
