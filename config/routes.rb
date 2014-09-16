@@ -1,9 +1,9 @@
 MixnMatch::Application.routes.draw do
 
-  
-  
   # Controllers / Views
   resources :users
+  resource :profile
+  resources :user_accounts, only: :create
   resources :artists do
     resources :user_artists
   end
@@ -15,15 +15,11 @@ MixnMatch::Application.routes.draw do
     resources :groups
   end
 
-  resources :user_accounts
-
-
-  #facebook callback for login
+  # Facebook callback for login
   resources :authentications
   match 'auth/:facebook/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
-
 
   match 'auth/:facebook/callback', to: 'authentications#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
