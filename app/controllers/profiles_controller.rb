@@ -5,7 +5,8 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    @profile = current_user.profiles.new(profile_params)
+    # create_profile is necessary for has_one association
+    @profile = current_user.create_profile(profile_params)
     if @profile.save
       redirect_to root_path
     else
@@ -16,7 +17,7 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).require(:summary, :orientation, :gender, :birth_m, :birth_d, :birth_y, :relationship, :friendship, :zipcode)
+    params.require(:profile).permit(:summary, :orientation, :gender, :birthday, :relationship, :friendship, :zipcode, :user_id)
   end
 
 end
