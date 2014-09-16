@@ -2,7 +2,7 @@ MixnMatch::Application.routes.draw do
 
   # Controllers / Views
   resources :users
-  resources :profiles
+  resource :profile
   resources :user_accounts, only: :create
   resources :artists do
     resources :user_artists
