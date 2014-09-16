@@ -1,0 +1,17 @@
+<h1>Profiles#new</h1>
+<p>Find me in app/views/profiles/new.html.erb</p>
+
+<h1><%= current_user.name %> | Profile</h1>
+<br>
+<%= form_for @profile do |f| %>
+
+    <%= f.text_area :summary, placeholder: 'Tell us about yourself', class: 'form-control' %>
+
+    <%#= f.select (:orientation, options_for_select('Straight', 'Gay', 'Bisexual')), class: 'form-control' %>
+
+
+
+    <br>
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+
+<% end %>
