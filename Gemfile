@@ -56,6 +56,12 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'unicorn'
 gem 'foreman'
 
+# Image hosing on AWS
+gem 'aws-sdk'
+
+# Heroku deployment
+gem 'rails_12factor', group: :production
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

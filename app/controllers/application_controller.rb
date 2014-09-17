@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  require "erb"
+  include ERB::Util
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery
@@ -21,11 +24,12 @@ class ApplicationController < ActionController::Base
   end
 
   def get_artists(artist_name, provider)
-    # create new artist in DB for each band returned from FB
+    # create new artist in DB for each artist imported if artist does not already exist
     artist = Artist.where(name: artist_name).first
     artist = Artist.create!(name: artist_name) unless artist
     #make a join table match between that user and their bands
-    UserArtist.create!(user: current_user, artist: artist, provider: provider) unless UserArtist.where(user: current_user, artist: artist).first
+    user_artist = UserArtist.where(user: current_user, artist: artist).first
+    UserArtist.create!(user: current_user, artist: artist, provider: provider) unless user_artist
   end
 
   def header
