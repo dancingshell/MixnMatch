@@ -62,6 +62,8 @@ gem 'aws-sdk'
 # Heroku deployment
 gem 'rails_12factor', group: :production
 
+ruby '2.1.1'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
