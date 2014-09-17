@@ -4,6 +4,7 @@ MixnMatch::Application.routes.draw do
   resources :users
   resource :profile
   resources :user_accounts, only: :create
+  get '/accounts', to: 'user_accounts#accounts'
   resources :artists do
     resources :user_artists
   end
@@ -19,21 +20,13 @@ MixnMatch::Application.routes.draw do
   resources :authentications
   match 'auth/:facebook/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
-  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
-
+  
   match 'auth/:facebook/callback', to: 'authentications#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-  # Spotify OAuth
-  match '/auth/:spotify/callback', to: 'static#spotify', via: [:get, :post]
-
-  get '/rdio', to: 'static#rdio'
-
-  get '/static', to: 'static#lastfm'
   # Session
   resource :session, only: [:new, :create, :destroy]
+  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
 
   # Root
   root 'static#index'
