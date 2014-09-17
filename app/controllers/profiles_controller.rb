@@ -14,6 +14,22 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def edit
+    if current_user
+      @profile = current_user.profile
+    else
+      redirect_to welcome_path
+    end
+  end
+
+  def update
+    if current_user.profile.update_attributes(profile_params)
+      redirect_to root_path
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def profile_params

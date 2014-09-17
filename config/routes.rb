@@ -1,7 +1,7 @@
 MixnMatch::Application.routes.draw do
 
   # Controllers / Views
-  resources :users
+  resources :users, except: :new
   resource :profile
   resources :user_accounts, only: :create
   get '/accounts', to: 'user_accounts#accounts'
@@ -23,6 +23,9 @@ MixnMatch::Application.routes.draw do
   
   match 'auth/:facebook/callback', to: 'authentications#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
+
+  # Welcome / Sign Up
+  get '/welcome', to: 'users#new'
 
   # Session
   resource :session, only: [:new, :create, :destroy]
