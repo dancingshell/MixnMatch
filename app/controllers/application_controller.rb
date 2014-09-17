@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user
   helper_method :current_artists
+  before_action :header
   
   private
   def current_user
@@ -25,5 +26,10 @@ class ApplicationController < ActionController::Base
     artist = Artist.create!(name: artist_name) unless artist
     #make a join table match between that user and their bands
     UserArtist.create!(user: current_user, artist: artist, provider: provider) unless UserArtist.where(user: current_user, artist: artist).first
+  end
+
+  def header
+    @user_login = User.new
+    @is_login = true
   end
 end

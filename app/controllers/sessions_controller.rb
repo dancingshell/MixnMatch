@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
             get_artists(band.name, 'spotify')  
           end 
         end
-        redirect_to root_url
+        redirect_to accounts_path
       end
     # MixinMatch
     else
