@@ -23,7 +23,12 @@ class UserAccountsController < ApplicationController
       end
       # Last.fm
       if @user_account.provider == 'lastfm'
-        url = HTTParty.get("http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=#{@user_account.username}&api_key=" + ENV['LASTFM_KEY'] + "&format=json")
+        url = HTTParty.get("http://ws.audioscrobbler.com/2.0/" +
+          "?method=user.gettopartists" +
+          "&user=#{@user_account.username}" +
+          "&period=3month" +
+          "&api_key=" + ENV['LASTFM_KEY'] +
+          "&format=json")
         @lastfm = JSON.parse(url.body)
         # If Last.fm username does not exist
         if @lastfm['error'] == 6
