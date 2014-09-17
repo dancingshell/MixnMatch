@@ -1,0 +1,36 @@
+<h1>Profiles#new</h1>
+<p>Find me in app/views/profiles/new.html.erb</p>
+
+<h1><%= current_user.name %> | Profile</h1>
+<br>
+<%= form_for @profile, url: profile_path do |f| %>
+
+    <%= f.text_area :summary, placeholder: 'Tell us about yourself', class: 'form-control' %>
+    <br>
+    <%= f.select :orientation, ['Straight', 'Gay', 'Bisexual'], { prompt: 'Orientation' }, { class: 'form-control'} %>
+    <br>
+    <%= f.select :gender, ['Female', 'Male'], { prompt: 'Gender' }, { class: 'form-control'} %>
+    <br>
+
+    <br>
+    <%= f.label :birthday %>
+    <br>
+    <%= f.date_select :birthday, order: [:month, :day, :year], prompt: { month: 'Month', day: 'Day', year: 'Year' }, start_year: Date.today.year-18, end_year: Date.today.year-80 %>
+
+    <br><br>
+
+    <%= f.check_box :relationship %>
+    <%= f.label :relationship %>
+    <br>
+    <%= f.check_box :friendship %>
+    <%= f.label :friendship %>
+
+    <br><br>
+
+    <%= f.text_field :zipcode, placeholder: 'Zipcode', class: 'form-control' %>
+
+
+    <br><br>
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+
+<% end %>

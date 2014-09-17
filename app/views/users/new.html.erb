@@ -1,2 +1,37 @@
 <h1>Users#new</h1>
 <p>Find me in app/views/users/new.html.erb</p>
+
+<!-- signed in test -->
+<% if current_user %>
+    <%= current_user.name %> is signed in
+<% end %>
+
+
+<h1>Sign Up</h1>
+<br>
+<%= form_for @user do |f| %>
+
+    <%= f.text_field :name, placeholder: 'First and Last Name', class: 'form-control' %>
+    <%= f.email_field :email, placeholder: 'Email Address', class: 'form-control' %>
+    <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+    <%= f.password_field :password_confirmation, placeholder: 'Retype Password', class: 'form-control' %>
+    <%= f.hidden_field :provider, value: 'mixnmatch' %>
+    <br>
+    <%= f.submit 'Sign Up', class: 'btn btn-primary' %>
+
+<% end %>
+
+<br><br>
+
+<h1>Sign In</h1>
+<br>
+<%= form_for @user_login, url: session_path do |f| %>
+    <%= f.text_field :email, placeholder: 'Email', class: 'form-control' %>
+    <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+    <br>
+    <%= f.submit 'Sign In', class: 'btn btn-primary' %>
+<% end %>
+
+
+<br><br>
+<%= link_to 'Sign out', signout_path %>
