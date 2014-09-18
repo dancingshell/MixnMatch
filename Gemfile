@@ -3,6 +3,17 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
+# Bootstrap
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'font-awesome-rails'
+
+# AngularJS
+gem 'angularjs-rails'
+gem 'angular-rails-templates'
+
+# Active Model Serializers
+gem 'active_model_serializers'
+
 # HTTP Party
 gem 'httparty'
 
@@ -18,26 +29,25 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-#facebook login
-gem "omniauth"
+# Facebook login
+gem 'omniauth'
 gem 'omniauth-facebook'
+
+# Spotify login
+gem 'rspotify', '~> 1.2.0'
+gem 'omniauth-spotify'
+gem 'omniauth-oauth2'
+
+# Rdio API call
+gem 'rdio_api'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -46,13 +56,23 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'unicorn'
 gem 'foreman'
 
-#spotify login
-gem 'rspotify',  '~> 1.2.0'
-gem 'omniauth-spotify'
-gem 'omniauth-oauth2'
+# Image hosing on AWS
+gem 'aws-sdk'
 
-# Rdio api call
-gem 'rdio_api'
+# Heroku deployment
+gem 'rails_12factor', group: :production
+
+ruby '2.1.1'
+
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+# gem 'turbolinks'
+
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# gem 'jbuilder', '~> 1.2'
+
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 

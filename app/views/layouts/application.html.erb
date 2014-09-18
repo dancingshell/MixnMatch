@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>MixnMatch</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<%= yield %>
+<html data-ng-app="MixnMatchApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>MixnMatch</title>
+        <meta name="description" content="MixnMatch Project 4.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <%= stylesheet_link_tag    "application", media: "all" %>
+        <%= javascript_include_tag "application" %>
+        <%= csrf_meta_tags %>
+    </head>
+    <body class="<%= params[:controller] %>_controller" data-ng-controller="MixnMatchCtrl">
 
-</body>
+        <!-- Login -->
+        <%= render 'partials/login' %>
+
+        <!-- Navbar -->
+        <%= render 'partials/navbar' %>
+
+        <!-- Content -->
+        <div class="container">
+            <img src="/assets/record_heart.png" style="width: 200px;" />
+            <%= yield %>
+        </div>
+
+    </body>
 </html>
-

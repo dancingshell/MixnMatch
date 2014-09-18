@@ -1,2 +1,15 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<h1>Account Settings</h1>
+<br>
+<%= form_for @user do |f| %>
+
+    <%= f.text_field :name, placeholder: 'First and Last Name', class: 'form-control' %>
+    <%= f.email_field :email, placeholder: 'Email Address', class: 'form-control' %>
+    <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+    <%= f.password_field :password_confirmation, placeholder: 'Retype Password', class: 'form-control' %>
+    <%= f.hidden_field :provider, value: 'mixnmatch' %>
+    <br>
+    <%= f.submit 'Save Changes', class: 'btn btn-primary' %>
+
+<% end %>
+
+<br><br>

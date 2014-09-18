@@ -1,2 +1,7 @@
 <h1>Artists#new</h1>
 <p>Find me in app/views/artists/new.html.erb</p>
+
+<%= form_for @artist do |f| %>
+	<%= f.text_field :name, placeholder: "Artist/band name", name: "name" %>
+	<%= f.submit "Submit" %>
+<% end %>
