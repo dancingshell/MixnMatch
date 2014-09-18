@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(version: 20140917034222) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "lastfm_id"
+    t.decimal  "lat",        precision: 15, scale: 10, default: 0.0
+    t.decimal  "long",       precision: 15, scale: 10, default: 0.0
   end
 
   create_table "groups", force: true do |t|

@@ -33,6 +33,12 @@ class SessionsController < ApplicationController
       else
         redirect_to :back
       end
+      artist_events = current_user.artists.take(5)
+      artist_events.each do |a|
+        get_events(a)
+      end
+      redirect_to root_url
+
     end
   end
 
