@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
     @user_login = User.new
     @is_login = true
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
   end
 
   def create
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :provider)
+    params.require(:user).permit(:name, :email, :avatar, :password, :password_confirmation, :provider)
   end
 
 end
