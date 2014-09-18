@@ -17,11 +17,16 @@ class SessionsController < ApplicationController
       spotify_tracks.each do |artist_track|
         artist_track.artists.each do |band|
         # call method from application controller to pull artists from a provider  
-        get_artists(band.name, "spotify")  
+        get_artists(band.name, "spotify")
+
         end 
       end
+      artist_events = current_user.artists.take(5)
+      artist_events.each do |a|
+        get_events(a)
+      end
       redirect_to root_url
-      # @spotify_user.email
+
     end
   end
 

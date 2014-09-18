@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140914163417) do
+ActiveRecord::Schema.define(version: 20140917034705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(version: 20140914163417) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "lastfm_id"
+    t.decimal  "lat",        precision: 15, scale: 10, default: 0.0
+    t.decimal  "long",       precision: 15, scale: 10, default: 0.0
   end
 
   create_table "groups", force: true do |t|
