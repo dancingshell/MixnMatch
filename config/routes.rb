@@ -1,7 +1,7 @@
 MixnMatch::Application.routes.draw do
 
   
-  get "user_accounts/create"
+  
   # Controllers / Views
   resources :users
   resources :artists
@@ -12,7 +12,7 @@ MixnMatch::Application.routes.draw do
     resources :groups
   end
 
-  resources :user_accounts
+  resources :user_accounts, only: :create
 
 
   #facebook callback for login
