@@ -20,9 +20,9 @@ class UserAccountsController < ApplicationController
           end
           redirect_to :back
         end
-      end
+      
       # Last.fm
-      if @user_account.provider == 'lastfm'
+      elsif @user_account.provider == 'lastfm'
         url = HTTParty.get("http://ws.audioscrobbler.com/2.0/" +
           "?method=user.gettopartists" +
           "&user=#{@user_account.username}" +
@@ -41,6 +41,8 @@ class UserAccountsController < ApplicationController
           end
           redirect_to :back
         end
+      else
+        # UserAccount.from_omniauth(env['omniauth.auth'])
       end
     end
   end
@@ -53,7 +55,7 @@ class UserAccountsController < ApplicationController
   private
 
   def account_params
-    params.require(:user_account).permit(:provider, :email, :username)
+    params.require(:user_account).permit(:provider, :email, :username, :name)
   end
   
 end
