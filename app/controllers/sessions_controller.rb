@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
       if env['omniauth.auth'].provider == 'facebook'
         user = User.from_omniauth(env['omniauth.auth'])
         session[:user_id] = user.id
-        redirect_to root_url
       # Spotify
       else
         spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
@@ -33,13 +32,15 @@ class SessionsController < ApplicationController
       else
         redirect_to :back
       end
-      artist_events = current_user.artists.take(5)
-      artist_events.each do |a|
-        get_events(a)
-      end
-      redirect_to root_url
+     
+    
 
     end
+    artist_events = current_user.artists.take(5)
+      artist_events.each do |a|
+        get_events(a)
+      end  
+      redirect_to root_url
   end
 
   def destroy
