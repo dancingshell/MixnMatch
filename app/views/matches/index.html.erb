@@ -1,2 +1,9 @@
 <h1>Matches#index</h1>
 <p>Find me in app/views/matches/index.html.erb</p>
+
+<% @love_results.each do |l| %>
+<li><%= l %></li> 
+<% end %>
+<% @users.each do |u| %>
+<li><%= u.name %></li>
+<% end %>
