@@ -2,11 +2,16 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery
+
+  require 'erb'
+  include ERB::Util
+
   helper_method :current_user
   helper_method :current_artists
   before_action :header
   
   private
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
@@ -24,7 +29,7 @@ class ApplicationController < ActionController::Base
     # create new artist in DB for each band returned from FB
     artist = Artist.where(name: artist_name).first
     artist = Artist.create!(name: artist_name) unless artist
-    #make a join table match between that user and their bands
+    # make a join table match between that user and their bands
     UserArtist.create!(user: current_user, artist: artist, provider: provider) unless UserArtist.where(user: current_user, artist: artist).first
   end
 
