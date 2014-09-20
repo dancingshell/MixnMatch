@@ -2,7 +2,7 @@
 <br>
 
 <%= form_for @profile do |f| %>
-
+    <%= f.text_field :username, placeholder: 'Choose a username',  class: 'form-control' %>
     <%= f.text_area :summary, placeholder: 'Tell us about yourself', class: 'form-control' %>
     <br>
     <%= f.select :orientation, ['Straight', 'Gay', 'Bisexual'], { prompt: 'Orientation' }, { class: 'form-control'} %>

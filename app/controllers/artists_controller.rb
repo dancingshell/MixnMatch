@@ -14,6 +14,11 @@ class ArtistsController < ApplicationController
   end
 
   def show
+    @artist = Artist.find(params[:id])
+    @artist_likers = UserArtist.where(artist: @artist)
+    @artist_likers = @artist_likers.each do |liker|
+      User.where(id: liker)
+    end
   end
 
   def edit

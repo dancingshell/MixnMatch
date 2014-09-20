@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :groups, through: :user_groups
   has_many :artists, through: :user_artists
   has_many :messages, through: :matches
-  has_one :profile  
+  has_many :profiles
   has_secure_password
 
   

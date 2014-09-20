@@ -6,7 +6,8 @@ class ProfilesController < ApplicationController
 
   def create
     # create_profile is necessary for has_one association
-    @profile = current_user.create_profile(profile_params)
+    @profile = Profile.new(profile_params)
+    @profile.user = current_user
     if @profile.save
       redirect_to root_path
     else
@@ -16,14 +17,15 @@ class ProfilesController < ApplicationController
 
   def edit
     if current_user
-      @profile = current_user.profile
+      @profile = Profile.find(params[:id])
     else
       redirect_to welcome_path
     end
   end
 
   def update
-    if current_user.profile.update_attributes(profile_params)
+    @profile = Profile.find(params[:id])
+    if @profile.update_attributes(profile_params)
       redirect_to root_path
     else
       render 'edit'

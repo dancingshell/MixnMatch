@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   
   def create
-    y = 1
     # OmniAuth
     if env['omniauth.auth']
       # Facebook

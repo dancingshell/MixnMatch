@@ -3,7 +3,7 @@
 
 <h1><%= current_user.name %> | Profile</h1>
 <br>
-<%= form_for @profile, url: profile_path do |f| %>
+<%= form_for @profile do |f| %>
     <%= f.text_field :username, placeholder: 'Choose a username',  class: 'form-control' %>
     <%= f.text_area :summary, placeholder: 'Tell us about yourself', class: 'form-control' %>
     <br>
