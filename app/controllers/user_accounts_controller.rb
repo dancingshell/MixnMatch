@@ -22,17 +22,18 @@ class UserAccountsController < ApplicationController
           end
           redirect_to :back
         end
-      end
+      
       # Last.fm
-      if @user_account.provider == 'lastfm'
-        # Last.fm get user top artists
-        url = HTTParty.get("http://ws.audioscrobbler.com/2.0/" +
+      elsif @user_account.provider == 'lastfm'
+        url = HTTParty.get(
+          "http://ws.audioscrobbler.com/2.0/" +
           "?method=user.gettopartists" +
           "&user=#{@user_account.username}" +
           "&period=3month" +
           # "&limit=100" + Note: limit defaults at 50
           "&api_key=" + ENV['LASTFM_KEY'] +
-          "&format=json")
+          "&format=json"
+        )
         @lastfm = JSON.parse(url.body)
         # If Last.fm username does not exist
         if @lastfm['error'] == 6
@@ -46,6 +47,8 @@ class UserAccountsController < ApplicationController
           end
           redirect_to :back
         end
+      else
+        # UserAccount.from_omniauth(env['omniauth.auth'])
       end
     end
   end
@@ -75,7 +78,7 @@ class UserAccountsController < ApplicationController
   private
 
   def account_params
-    params.require(:user_account).permit(:provider, :email, :username)
+    params.require(:user_account).permit(:provider, :email, :username, :name)
   end
   
 end

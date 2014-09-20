@@ -1,5 +1,6 @@
 MixnMatch::Application.routes.draw do
-
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   # Controllers / Views
   resources :users, except: :new
   resource :profile
@@ -16,7 +17,7 @@ MixnMatch::Application.routes.draw do
     resources :groups
   end
 
-  # Facebook callback for login
+  # Facebook/spotify callback for login
   resources :authentications
   match 'auth/:facebook/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]

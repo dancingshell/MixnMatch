@@ -9,13 +9,14 @@ class UsersController < ApplicationController
   def new
     @navbar = false
     @user = User.new
-
     @user_login = User.new
     @is_login = true
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
   end
 
   def create
     @user = User.new(user_params)
+    @user.avatar = params[:user][:avatar].last
     if @user.save
       session[:user_id] = @user.id.to_s
       redirect_to accounts_path
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :provider)
+    params.require(:user).permit(:name, :email, :avatar, :password, :password_confirmation, :provider)
   end
 
 end

@@ -1,0 +1,12 @@
+.progress {
+  max-width: 600px;
+  margin:    0.2em 0 0.2em 0;
+  height: 30px;
+}
+
+.progress .bar {
+  height:  10em;
+  padding: 0.6em;
+  color:   white;
+  display: none;
+}

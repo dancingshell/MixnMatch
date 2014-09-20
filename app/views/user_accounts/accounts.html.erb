@@ -1,18 +1,19 @@
 <h1>Artist Import</h1>
 <br>
-
-<%# if current_user.user_accounts.find_by(provider: 'facebook') %>
-    <strike><h4>Facebook not linked! (needs implementation)</h4></strike>
-<%# else %>
-    <%#= link_to 'Spotify', '/auth/spotify', target: '_blank' %>
-<%# end %>
+<%= image_tag current_user.avatar %>
+<% if current_user.user_accounts.find_by(provider: 'facebook')  || current_user.provider == "facebook" %>
+    <h4>Facebook linked!</h4>
+<% else %>
+    <%#= link_to 'Facebook', '/auth/facebook'%>
+     <a href="/auth/facebook" id="sign_in"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
+<% end %>
 
 <br>
 
 <% if current_user.user_accounts.find_by(provider: 'spotify') %>
     <h4>Spotify linked!</h4>
 <% else %>
-    <%= link_to 'Spotify', '/auth/spotify', target: '_blank' %>
+    <%= link_to 'Spotify', '/auth/spotify' %>
 <% end %>
 
 <br>

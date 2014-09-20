@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   end
 
   def index
+    
   end
 
   def show
@@ -11,3 +12,5 @@ class EventsController < ApplicationController
   def edit
   end
 end
+
+
