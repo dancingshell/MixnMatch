@@ -1,12 +1,8 @@
 <div id="user-widget">
   <% if current_user %>
-<<<<<<< HEAD
-    Welcome <strong><%= current_user.name %></strong>!
-    <%= current_user.inspect %> <%= image_tag current_user.avatar if current_user.avatar %>
-=======
     Welcome <strong><%= current_user.name %></strong>!<br>
-    <%= current_user.inspect %> <%= image_tag current_user.avatar %>
->>>>>>> 41d140308cb42058e405a4474cf0050201bca1a2
+<<<<<<< HEAD
+    <%#= current_user.inspect %> <%#= image_tag current_user.avatar %>
     <%= link_to "Sign out", signout_path, id: "sign_out" %><br>Music:<br>
     <%= current_user.uid %><br>
     spotify_user: <%= UserAccount.where(user: current_user, provider: "spotify").first %>
@@ -21,9 +17,26 @@
         <% end %>
       </li>
     <% end %>
+=======
+    <%#= current_user.inspect %><br><%= image_tag current_user.avatar, size: "100" if current_user.avatar %>
+    <div class="row">
+      <% current_artists.each do |artist| %>
+        <div class="col-md-1 artist-box text-center">
+          <b><%= link_to artist.name, artist_path(artist) %></b><br/>
+          <% UserArtist.where(user: current_user, artist: artist).each do |artist| %>
+            <%= artist.provider %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+>>>>>>> kaitlin2
   <% else %>
      <a href="/auth/facebook" id="sign_in"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
   <% end %>
 </div>
+<<<<<<< HEAD
 boop
+<%#= link_to 'Monitoring', sidekiq_web_path %>
+=======
 <%= link_to 'Monitoring', sidekiq_web_path %>
+>>>>>>> kaitlin2
