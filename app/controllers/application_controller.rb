@@ -43,11 +43,13 @@ class ApplicationController < ActionController::Base
 
   def get_events(artist_name)
 
-    if artist_name.name.include?(" ")
-      new_name = artist_name.name.gsub!(" ", '+')
-    else
-      new_name = artist_name.name
-    end
+    # if artist_name.name.include?(" ")
+    #   new_name = artist_name.name.gsub!(" ", '+')
+    # else
+    #   new_name = artist_name.name
+    # end
+
+    new_name = url_encode(artist_name)
 
     url = HTTParty.get("http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=#{new_name}&api_key=" + ENV['LASTFM_KEY'] + "&format=json")
     @lastfm_events = JSON.parse(url.body)
