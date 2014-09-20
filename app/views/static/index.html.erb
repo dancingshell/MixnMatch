@@ -8,6 +8,9 @@
     <% current_artists.each do |artist| %>
       <li>
         <b><%= artist.name %></b>
+        <br>
+        <%= image_tag artist.genre %>
+        <br>
         <% UserArtist.where(user: current_user, artist: artist).each do |artist| %>
           <%= artist.provider %>
         <% end %>
