@@ -1,7 +1,12 @@
 <div id="user-widget">
   <% if current_user %>
+<<<<<<< HEAD
+    Welcome <strong><%= current_user.name %></strong>!
+    <%= current_user.inspect %> <%= image_tag current_user.avatar if current_user.avatar %>
+=======
     Welcome <strong><%= current_user.name %></strong>!<br>
     <%= current_user.inspect %> <%= image_tag current_user.avatar %>
+>>>>>>> 41d140308cb42058e405a4474cf0050201bca1a2
     <%= link_to "Sign out", signout_path, id: "sign_out" %><br>Music:<br>
     <%= current_user.uid %><br>
     spotify_user: <%= UserAccount.where(user: current_user, provider: "spotify").first %>

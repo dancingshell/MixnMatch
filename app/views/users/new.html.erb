@@ -20,15 +20,14 @@ $(function() {
         var progress = parseInt(data.loaded / data.total * 100, 10);
         progressBar.css('width', progress + '%')
       },
-      start: function (e, data) {
+      start: function (e) {
         submitButton.prop('disabled', true);
 
         progressBar.
-          css('background', '#ff3399').
+          css('background', 'green').
           css('display', 'block').
           css('width', '0%').
-          css('color', 'white').
-          text("Loading... ");
+          text("Loading...");
       },
       done: function(e, data) {
         submitButton.prop('disabled', false);
