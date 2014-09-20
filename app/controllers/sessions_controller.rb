@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def create
+    y = 1
     # OmniAuth
     if env['omniauth.auth']
       # Facebook
@@ -36,11 +37,8 @@ class SessionsController < ApplicationController
     
 
     end
-    artist_events = current_user.artists.take(5)
-      artist_events.each do |a|
-        get_events(a)
-      end  
-      redirect_to root_url
+    # find events for artists on delay ( method in app controller )
+    current_artists.delay_for(2.second).each { |a| get_events(a) }
   end
 
   def destroy
