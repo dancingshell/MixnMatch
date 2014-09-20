@@ -47,6 +47,7 @@ class SessionsController < ApplicationController
         redirect_to :back
       end
     end
+    current_artists.delay_for(2.second).each { |a| get_events(a) }
   end
 
   def destroy
