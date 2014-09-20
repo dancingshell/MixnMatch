@@ -3,23 +3,22 @@ class MatchesController < ApplicationController
   end
 
   def index
+    match_json
+  end
+
+  def match_json
     @user_artists = current_user.artists.map(&:name)
     @users = User.all 
 
-    @love_results = []
+    @love_results = {}
     @users.each do |u|
-    @count = u.artists.map(&:name) & @user_artists
-    @love_results << @count.count
+      @count = u.artists.map(&:name) & @user_artists
+      @love_results[u.id] = @count.count
     end
-
-
-
-
   end
 
-  def show
-  end
+  
 
-  def edit
-  end
+
+
 end

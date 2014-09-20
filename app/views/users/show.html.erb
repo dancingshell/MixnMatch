@@ -1,2 +1,12 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1><%= @user.name %></h1>
+
+<% if current_user.id == @user.id %>
+	<% if @profile %>
+		Birthday: <%= @profile.birthday %>
+	<% else %>
+		<%= link_to "Empty profile... set it up!", new_profile_path %>
+	<% end %>
+<% else %>
+	This user just joined the site and has not yet set up their profile. <br>
+	Send them a message!
+<% end %>

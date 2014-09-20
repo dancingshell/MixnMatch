@@ -1,4 +1,3 @@
-<script>
 $(function() {
   $('.directUpload').find("input:file").each(function(i, elem) {
     var fileInput    = $(elem);
@@ -51,32 +50,3 @@ $(function() {
     });
   });
 });
-</script>
-
-<div class="row">
-  <h1 class="text-center">Sign Up</h1>
-  <div class="col-md-4 col-md-offset-4">  
-    <br>
-    <%= form_for(@user, html: { class: "directUpload" }) do |f| %>
-      <%= f.text_field :name, placeholder: 'First and Last Name', class: 'form-control' %>
-      <%= f.email_field :email, placeholder: 'Email Address', class: 'form-control' %>
-      <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
-      <%= f.password_field :password_confirmation, placeholder: 'Retype Password', class: 'form-control' %>
-      <%= f.hidden_field :provider, value: 'mixnmatch' %>
-      <div class="field">
-    		<%= f.file_field :avatar, class: 'upload', multiple: true, placeholder: "Chose a file to start searching for love..." %>
-      </div>
-      <%= f.submit 'Sign Up', class: 'btn btn-primary' %>
-    <% end %>
-  </div>
-
-<br><br>
-
-<p>or signup via Facebook</p>
-
-<a href="/auth/facebook" id="sign_in"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
-
-<br><br>
-
-<p>Already a member?</p>
-<p><a data-toggle="modal" data-target="#login" style="cursor: pointer;"><b>Log In!</b></a></p>

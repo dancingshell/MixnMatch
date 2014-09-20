@@ -3,7 +3,7 @@ MixnMatch::Application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   # Controllers / Views
   resources :users, except: :new
-  resource :profile
+  resources :profiles
   resources :user_accounts, only: :create
   get '/accounts', to: 'user_accounts#accounts'
   resources :artists do
@@ -16,6 +16,8 @@ MixnMatch::Application.routes.draw do
   resources :events, shallow: true do
     resources :groups
   end
+
+  get "/api/matches" => "matches#match_json"
 
   # Facebook/spotify callback for login
   resources :authentications
