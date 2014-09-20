@@ -48,7 +48,10 @@ class SessionsController < ApplicationController
         redirect_to :back
       end
     end
+<<<<<<< HEAD
     # find events for artists on delay ( method in app controller )
+=======
+>>>>>>> 41d140308cb42058e405a4474cf0050201bca1a2
     current_artists.delay_for(2.second).each { |a| get_events(a) }
   end
 
