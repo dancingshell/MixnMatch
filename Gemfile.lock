@@ -51,15 +51,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-<<<<<<< HEAD
+    connection_pool (2.0.0)
     delayed_job (4.0.3)
       activesupport (>= 3.0, < 4.2)
     delayed_job_active_record (4.0.2)
       activerecord (>= 3.0, < 4.2)
       delayed_job (>= 3.0, < 4.1)
-=======
-    connection_pool (2.0.0)
->>>>>>> 09889a6e1f149edf45a5aef1d6f040e020176037
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
