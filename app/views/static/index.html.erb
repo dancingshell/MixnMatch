@@ -1,7 +1,7 @@
 <div id="user-widget">
   <% if current_user %>
     Welcome <strong><%= current_user.name %></strong>!<br>
-    <%= current_user.inspect %> <%= image_tag current_user.avatar %>
+    <%#= current_user.inspect %> <%#= image_tag current_user.avatar %>
     <%= link_to "Sign out", signout_path, id: "sign_out" %><br>Music:<br>
     <%= current_user.uid %><br>
     spotify_user: <%= UserAccount.where(user: current_user, provider: "spotify").first %>
@@ -21,4 +21,4 @@
   <% end %>
 </div>
 boop
-<%= link_to 'Monitoring', sidekiq_web_path %>
+<%#= link_to 'Monitoring', sidekiq_web_path %>

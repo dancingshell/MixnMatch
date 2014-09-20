@@ -49,7 +49,7 @@ class SessionsController < ApplicationController
       end
     end
     # find events for artists on delay ( method in app controller )
-    current_artists.delay_for(2.second).each { |a| get_events(a) }
+    current_artists.each { |a| get_events(a) }
   end
 
   def destroy
