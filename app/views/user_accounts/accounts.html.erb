@@ -34,6 +34,7 @@
 <% if current_user.user_accounts.find_by(provider: 'lastfm') %>
     <h4>Last.fm linked!</h4>
 <% else %>
+    <%= @errors %>
     <%= form_for @lastfm_username do |f| %>
         <label>Last.fm</label><br>
         <%= f.text_field :username, placeholder: "Last.fm username" %>

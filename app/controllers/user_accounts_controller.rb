@@ -25,26 +25,58 @@ class UserAccountsController < ApplicationController
       
       # Last.fm
       elsif @user_account.provider == 'lastfm'
-        url = HTTParty.get(
-          "http://ws.audioscrobbler.com/2.0/" +
-          "?method=user.gettopartists" +
-          "&user=#{@user_account.username}" +
-          "&period=3month" +
-          # "&limit=100" + Note: limit defaults at 50
-          "&api_key=" + ENV['LASTFM_KEY'] +
-          "&format=json"
-        )
-        @lastfm = JSON.parse(url.body)
-        # If Last.fm username does not exist
-        if @lastfm['error'] == 6
-          @user_account.destroy
-          redirect_to :back
-        # Else add Last.fm artists to user artists
-        else
-          # Get Last.fm artists
-          @lastfm['topartists']['artist'].each do |lastfm|
-            get_artists(lastfm['name'], 'lastfm')
+        # checks if last fm username exsts
+        find_user = HTTParty.get("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=y3274y239y&api_key=#{ENV['LASTFM_KEY']}&format=json")
+        if find_user["error"] != 6
+          url = HTTParty.get(
+            "http://ws.audioscrobbler.com/2.0/" +
+            "?method=user.gettopartists" +
+            "&user=#{@user_account.username}" +
+            "&period=3month" +
+            # "&limit=100" + Note: limit defaults at 50
+            "&api_key=" + ENV['LASTFM_KEY'] +
+            "&format=json"
+          )
+          # if user does not have any top artists in the last 3 months, take overall artists
+          if url["topartists"]["total"] == "0"
+            url = HTTParty.get(
+            "http://ws.audioscrobbler.com/2.0/" +
+            "?method=user.gettopartists" +
+            "&user=#{@user_account.username}" +
+            "&period=overall" +
+            # "&limit=100" + Note: limit defaults at 50
+            "&api_key=" + ENV['LASTFM_KEY'] +
+            "&format=json")
+            @lastfm = JSON.parse(url.body)
+            # If Last.fm username does not exist
+            if @lastfm['error'] == 6
+              @user_account.destroy
+              redirect_to :back
+            # Else add Last.fm artists to user artists
+            else
+              # Get Last.fm artists
+              @lastfm['topartists']['artist'].each do |lastfm|
+                get_artists(lastfm['name'], 'lastfm')
+              end
+              redirect_to :back
+            end
+          elsif url["topartists"]["total"] > "0"
+            @lastfm = JSON.parse(url.body)
+            # If Last.fm username does not exist
+            if @lastfm['error'] == 6
+              @user_account.destroy
+              redirect_to :back
+            # Else add Last.fm artists to user artists
+            else
+              # Get Last.fm artists
+              @lastfm['topartists']['artist'].each do |lastfm|
+                get_artists(lastfm['name'], 'lastfm')
+              end
+              redirect_to :back
+            end
           end
+        else
+          # no lastfm user found
           redirect_to :back
         end
       else
@@ -59,19 +91,19 @@ class UserAccountsController < ApplicationController
     @rdio_email = UserAccount.new
     @lastfm_username = UserAccount.new
 
-    Artist.where(genre: nil).each do |artist|
-      artist.delay.update!(genre:
-        JSON.parse(
-          HTTParty.get(
-            "http://ws.audioscrobbler.com/2.0/" +
-            "?method=artist.getinfo" +
-            "&artist=" + url_encode(artist.name) +
-            "&api_key=" + ENV['LASTFM_KEY'] +
-            "&format=json"
-          ).body
-        )['artist']['image'][-2]['#text']
-      )
-    end
+    # Artist.where(genre: nil).each do |artist|
+    #   artist.delay.update!(genre:
+    #     JSON.parse(
+    #       HTTParty.get(
+    #         "http://ws.audioscrobbler.com/2.0/" +
+    #         "?method=artist.getinfo" +
+    #         "&artist=" + url_encode(artist.name) +
+    #         "&api_key=" + ENV['LASTFM_KEY'] +
+    #         "&format=json"
+    #       ).body
+    #     )['artist']['image'][-2]['#text']
+    #   )
+    # end
 
   end
 
