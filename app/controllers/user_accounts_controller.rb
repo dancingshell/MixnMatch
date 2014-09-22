@@ -2,32 +2,34 @@ class UserAccountsController < ApplicationController
 
   # POST '/user_accounts'
   def create
-    @user_account = current_user.user_accounts.new(account_params) 
-    if @user_account.save
-      # Rdio
-      if @user_account.provider == 'rdio'
-        client = RdioApi.new(consumer_key: ENV['RDIO_KEY'], consumer_secret: ENV['RDIO_SECRET'])
-        @rdio = client.findUser(email: @user_account.email)
-        # If Rdio email does not exist
-        if @rdio.nil?
-          @user_account.destroy
-          redirect_to :back
-        # Else add Rdio artists to user artists
-        else
-          @rdio_key = @rdio['key']
-          @rdio_rotation = client.getHeavyRotation(user: @rdio_key)
-          # Get Rdio artists
-          @rdio_rotation.each do |rdio|
-            get_artists(rdio['artist'], 'rdio')
+    @user_account = current_user.user_accounts.new(account_params)
+    # checks if last.fm user exists
+    @username = params[:user_account][:username]
+    find_user = HTTParty.get("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=#{@username}&api_key=#{ENV['LASTFM_KEY']}&format=json")
+    unless find_user["error"] && find_user["error"] == 6
+      if @user_account.save
+        # Rdio
+        if @user_account.provider == 'rdio'
+          client = RdioApi.new(consumer_key: ENV['RDIO_KEY'], consumer_secret: ENV['RDIO_SECRET'])
+          @rdio = client.findUser(email: @user_account.email)
+          # If Rdio email does not exist
+          if @rdio.nil?
+            @user_account.destroy
+            redirect_to :back
+          # Else add Rdio artists to user artists
+          else
+            @rdio_key = @rdio['key']
+            @rdio_rotation = client.getHeavyRotation(user: @rdio_key)
+            # Get Rdio artists
+            @rdio_rotation.each do |rdio|
+              get_artists(rdio['artist'], 'rdio')
+            end
+            redirect_to :back
           end
-          redirect_to :back
-        end
-      
-      # Last.fm
-      elsif @user_account.provider == 'lastfm'
-        # checks if last fm username exsts
-        find_user = HTTParty.get("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=y3274y239y&api_key=#{ENV['LASTFM_KEY']}&format=json")
-        if find_user["error"] != 6
+        
+        # Last.fm
+        elsif @user_account.provider == 'lastfm'
+          
           url = HTTParty.get(
             "http://ws.audioscrobbler.com/2.0/" +
             "?method=user.gettopartists" +
@@ -48,40 +50,24 @@ class UserAccountsController < ApplicationController
             "&api_key=" + ENV['LASTFM_KEY'] +
             "&format=json")
             @lastfm = JSON.parse(url.body)
-            # If Last.fm username does not exist
-            if @lastfm['error'] == 6
-              @user_account.destroy
-              redirect_to :back
-            # Else add Last.fm artists to user artists
-            else
               # Get Last.fm artists
-              @lastfm['topartists']['artist'].each do |lastfm|
-                get_artists(lastfm['name'], 'lastfm')
-              end
-              redirect_to :back
+            @lastfm['topartists']['artist'].each do |lastfm|
+              get_artists(lastfm['name'], 'lastfm')
             end
-          elsif url["topartists"]["total"] > "0"
+            redirect_to :back
+          else
             @lastfm = JSON.parse(url.body)
-            # If Last.fm username does not exist
-            if @lastfm['error'] == 6
-              @user_account.destroy
-              redirect_to :back
-            # Else add Last.fm artists to user artists
-            else
-              # Get Last.fm artists
-              @lastfm['topartists']['artist'].each do |lastfm|
-                get_artists(lastfm['name'], 'lastfm')
-              end
-              redirect_to :back
+            # Get Last.fm artists
+            @lastfm['topartists']['artist'].each do |lastfm|
+              get_artists(lastfm['name'], 'lastfm')
             end
+            redirect_to :back
           end
-        else
-          # no lastfm user found
-          redirect_to :back
         end
-      else
-        # UserAccount.from_omniauth(env['omniauth.auth'])
       end
+    else
+      @user_account.destroy
+      redirect_to :back
     end
   end
 
