@@ -15,4 +15,9 @@
 /log/*.log
 /tmp
 /vendor
+
+# Ignore ENV keys
 .env
+
+# Ignore Redis Dump file
+dump.rdb
