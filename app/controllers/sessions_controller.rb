@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   
   def create
-    y = 1
     # OmniAuth
     if env['omniauth.auth']
       # Facebook
@@ -11,6 +10,11 @@ class SessionsController < ApplicationController
         user = User.from_omniauth(env['omniauth.auth'])
         session[:user_id] = user.id
         redirect_to root_url
+
+        # Note: runs after user log in
+        # Find events for artists on delay ( method in app controller )
+        current_artists.each { |a| get_events(a) }
+
       elsif env['omniauth.auth'].provider == 'facebook' && current_user
         # creates new user account for user if they are logged in via MixnMatch authentication
         # goes through UserAccount model
@@ -44,12 +48,15 @@ class SessionsController < ApplicationController
         # Creates a cookie for the user, holding the logged in user ID
         session[:user_id] = user.id.to_s
         redirect_to root_path
+
+        # Note: runs after user log in
+        # Find events for artists on delay ( method in app controller )
+        current_artists.delay_for(2.second).each { |a| get_events(a) }
+
       else
         redirect_to :back
       end
     end
-    # find events for artists on delay ( method in app controller )
-    current_artists.each { |a| get_events(a) }
   end
 
   def destroy

@@ -18,7 +18,7 @@ gem 'active_model_serializers'
 gem 'httparty'
 
 # Delayed Job
-gem 'delayed_job_active_record'
+# gem 'delayed_job_active_record'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -65,8 +65,9 @@ gem 'aws-sdk'
 # Heroku deployment
 gem 'rails_12factor', group: :production
 
-# gem 'sidekiq'
-# gem 'sinatra', '>= 1.3.0', :require => nil
+# Sidekiq
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 
 # ruby '2.1.1'
