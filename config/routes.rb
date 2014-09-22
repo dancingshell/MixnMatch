@@ -32,6 +32,7 @@ MixnMatch::Application.routes.draw do
 
   # Welcome / Sign Up
   get '/welcome', to: 'users#new'
+  get '/privacy', to: 'static#privacy'
 
   # Session
   resource :session, only: [:new, :create, :destroy]
