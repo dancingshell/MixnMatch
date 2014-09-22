@@ -87,12 +87,12 @@ class UserAccountsController < ApplicationController
     @lastfm_username = UserAccount.new
 
     # Update artist images from Last.fm after account import
-    Artist.where(genre: nil).each do |artist|
-      ImageWorker.perform_async(artist.id)
-    end
+    # Artist.where(genre: nil).each do |artist|
+    #   ImageWorker.perform_async(artist.id)
+    # end
 
-    # Update events for current artists from Last.fm after account import
-    current_artists.each { |a| EventWorker.perform_async(a.id) }
+    # # Update events for current artists from Last.fm after account import
+    # current_artists.each { |a| EventWorker.perform_async(a.id) }
 
     # Note 1: Refacter to only run EventWorker if necessary
 
