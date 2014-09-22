@@ -15,7 +15,7 @@ class ImageWorker
           "http://ws.audioscrobbler.com/2.0/" +
           "?method=artist.getinfo" +
           "&artist=#{url_encode(artist_name)}" +
-          # Note: look into how to connect .evn to sidekiq class
+          # Note: look into how to connect .env to sidekiq class
           # "&api_key=#{ENV['LASTFM_KEY']}" +
           "&api_key=2d4eafcd13fe4bd7da79ea43ecd3dded" +
           "&format=json"
