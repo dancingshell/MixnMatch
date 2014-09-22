@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #@profile = @user.profile if @user.profile
+    @profile = @user.profiles.first
   end
 
   def new
