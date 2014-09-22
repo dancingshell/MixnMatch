@@ -11,9 +11,11 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         redirect_to root_url
 
-        # Note: runs after user log in
         # Find events for artists on delay ( method in app controller )
-        current_artists.each { |a| get_events(a) }
+        current_artists.each { |a| EventWorker.perform_async(a.id) }
+        
+        # Note 1: runs after user logs in with Facebook
+        # Note 2: sidekiq only likes params that are serialized
 
       elsif env['omniauth.auth'].provider == 'facebook' && current_user
         # creates new user account for user if they are logged in via MixnMatch authentication
@@ -49,9 +51,12 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id.to_s
         redirect_to root_path
 
-        # Note: runs after user log in
         # Find events for artists on delay ( method in app controller )
-        current_artists.delay_for(2.second).each { |a| get_events(a) }
+
+        current_artists.each { |a| EventWorker.perform_async(a.id) }
+
+        # Note 1: runs after user logs in with MixnMatch
+        # Note 2: sidekiq only likes params that are serialized
 
       else
         redirect_to :back

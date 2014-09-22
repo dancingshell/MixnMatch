@@ -86,18 +86,9 @@ class UserAccountsController < ApplicationController
     @rdio_email = UserAccount.new
     @lastfm_username = UserAccount.new
 
+    # Update artist images from Last.fm after accout import
     Artist.where(genre: nil).each do |artist|
-      artist.delay.update!(genre:
-        JSON.parse(
-          HTTParty.get(
-            "http://ws.audioscrobbler.com/2.0/" +
-            "?method=artist.getinfo" +
-            "&artist=" + url_encode(artist.name) +
-            "&api_key=" + ENV['LASTFM_KEY'] +
-            "&format=json"
-          ).body
-        )['artist']['image'][-2]['#text']
-      )
+      ImageWorker.perform_async(artist.id)
     end
 
   end
