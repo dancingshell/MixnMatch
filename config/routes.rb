@@ -12,7 +12,6 @@ MixnMatch::Application.routes.draw do
   resources :artists do
     resources :user_artists
   end
-  delete 'artists/:id', to: 'artists#remove_user_artist', as: "remove_user_artist"
   resources :matches, shallow: true do
     resources :messages
   end
