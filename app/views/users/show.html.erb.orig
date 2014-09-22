@@ -1,5 +1,28 @@
 <h1><%= @user.name %></h1>
 <% if @profile %>
+<<<<<<< HEAD
+	<!-- if you are viewing your own page you can edit your profile -->
+	<% if current_user.id == @user.id %>
+		<%= link_to "Edit your profile", edit_profile_path(@profile), class: "pull-right" %>
+	<% end %>
+	<!-- profile info -->
+	Age: <%= @profile.age(@user) %><br />
+	Bio: <%= @profile.summary %><br />
+	Birthday: <%= @profile.birthday.strftime(' %B %d, %Y') %><br />
+	<%= @profile.is_birthday(@user, current_user) %><br />
+
+	Orientation: <%= @profile.orientation %><br />
+	
+
+<% else %>
+	<% if current_user.id == @user.id %>
+	<!-- if you are viewing your own page you can set up your profile -->
+		<%= link_to "Empty profile... set it up!", new_profile_path %>
+	<% end %>
+	<!-- Default message to other users if no profile exists -->
+	This user just joined the site and has not yet set up their profile. <br>
+	Send them a message!
+=======
 
     <!-- if you are viewing your own page you can edit your profile -->
     <% if current_user.id == @user.id %>
@@ -27,4 +50,5 @@
 
     <% end %>
 
+>>>>>>> 4c538a5529a48b0f4ade91317a8ecf5b993348ac
 <% end %>

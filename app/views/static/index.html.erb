@@ -8,7 +8,7 @@
       <% current_artists.each do |artist| %>
         <div class="col-md-1 artist-box text-center">
           <b><%= link_to artist.name, artist_path(artist) %></b><br/>
-          <%= image_tag artist.genre %>
+          <%= image_tag artist.genre, class: 'image-box' %>
           <br>
           <% UserArtist.where(user: current_user, artist: artist).each do |artist| %>
             <%= artist.provider %>
@@ -20,5 +20,5 @@
      <a href="/auth/facebook" id="sign_in"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
   <% end %>
 </div>
-<%#= link_to 'Monitoring', sidekiq_web_path %>
+<%= link_to 'Monitoring', sidekiq_web_path %>
 <%#= current_user.inspect %>

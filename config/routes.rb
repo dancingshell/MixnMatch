@@ -1,6 +1,9 @@
 MixnMatch::Application.routes.draw do
-  # require 'sidekiq/web'
-  # mount Sidekiq::Web => '/sidekiq'
+
+  # Sidekiq
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   # Controllers / Views
   resources :users, except: :new
   resources :profiles
