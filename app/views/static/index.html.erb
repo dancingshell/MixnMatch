@@ -6,7 +6,7 @@
   
     <div class="row">
       <% current_artists.each do |artist| %>
-        <div class="col-md-1 artist-box text-center">
+        <div class="col-sm-1 artist-box text-center">
           <b><%= link_to artist.name, artist_path(artist) %></b><br/>
           <%= image_tag artist.genre, class: 'image-box' %>
           <br>
