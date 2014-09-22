@@ -1,9 +1,9 @@
-<h1>Profile Settings</h1>
+<h1><%= current_user.name %> | Edit Profile</h1>
 <br>
 
 <%= form_for @profile do |f| %>
     <%= f.text_field :username, placeholder: 'Choose a username',  class: 'form-control' %>
-    <%= f.text_area :summary, placeholder: 'Tell us about yourself', class: 'form-control' %>
+    <%= f.text_area :summary, placeholder: 'Tell us about yourself', class: 'form-control', size: "100x8" %>
     <br>
     <%= f.select :orientation, ['Straight', 'Gay', 'Bisexual'], { prompt: 'Orientation' }, { class: 'form-control'} %>
     <br>
