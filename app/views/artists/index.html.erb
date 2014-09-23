@@ -6,6 +6,6 @@
 	<% unless current_artists.include?(artist) %>
 		<%= link_to " + Artist", artist_user_artists_path(artist.id), method: :post %></li>
 	<% else %>
-		<%= link_to "Remove from collection", remove_user_artist_path(artist.id), method: :delete %></li>
+		<%= link_to "Remove from collection", artist_user_artist_path(artist.id, current_user), method: :delete %></li>
 	<% end %>
 <% end %>
