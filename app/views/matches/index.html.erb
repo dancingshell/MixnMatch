@@ -1,9 +1,38 @@
-<h1>Matches#index</h1>
-<p>Find me in app/views/matches/index.html.erb</p>
+<!-- 
+<div class='choice1'>
+  <select ng-model="lookingfor" ng-options="o.name as (o.name) for o in option" placeholder="Show Me">
+    <option value="">Show Me</option>
+  </select>
+</div>
 
-<% @love_results.each do |l| %>
-<li><%= l %></li> 
-<% end %>
-<% @users.each do |u| %>
-<li><%= u.name %></li>
-<% end %>
+<div class='choice2'>
+  <input type="text" size="25" placeholder="min age" data-ng-model="agemin" class="age">
+  <input type="text" size="25" placeholder="max age" data-ng-model="agemax" class="age">
+</div> -->
+
+  <label>Show Me</label>
+   <select ng-model="filterItem.choice" ng-options="m.name for m in option.choices">
+    </select>
+    <label>Min. Age</label>
+     <select ng-model="filterAgemin.choice" ng-options="m.age for m in ageminoption.choices">
+    </select>
+    <label>Max Age</label>
+    <select ng-model="filterAgemax.choice" ng-options="m.age for m in agemaxoption.choices">
+    </select>
+
+    <p>
+      <strong>Selected Preference: </strong> {{filterItem.choice.name}}
+    </p>
+
+<div ng-repeat="match in matches | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter" >
+  <li><strong>Name:</strong> {{match[0].name}} <strong> Matches:</strong> {{match[1][0]}} : <strong>Age:</strong> {{ match[1][2] }} </li>
+</div>
+
+
+<br>
+
+
+
+
+    
+   

@@ -7,6 +7,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @profile = @user.profiles.first
+
+    @user_artists = current_user.artists.map(&:name)
+    @friend_artists = @user.artists.map(&:name)
+    @count = @user_artists & @friend_artists
+    @love_results = @count.count
   end
 
   def new

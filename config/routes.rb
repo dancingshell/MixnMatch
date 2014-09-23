@@ -22,6 +22,7 @@ MixnMatch::Application.routes.draw do
 
   get "/api/matches" => "matches#match_json"
 
+
   # Facebook/spotify callback for login
   resources :authentications
   match 'auth/:facebook/callback', to: 'sessions#create', via: [:get, :post]
