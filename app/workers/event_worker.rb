@@ -25,10 +25,10 @@ class EventWorker
       # Do nothing?
     elsif @lastfm_events['events']['total'] == '0'
       # Do nothing?
-    elsif @lastfm_events['events']['@attr']['total'] == '1' 
+    elsif @lastfm_events['events']['@attr']['total'] == '1'
       venue = @lastfm_events['events']['event']['venue']
       event = Event.where(url: @lastfm_events['events']['event']['url'])[0]
-      event = Event.create!(title: @lastfm_events['events']['event']['title'], venue: venue['name'], date: @lastfm_events['events']['event']['startDate'], url: @lastfm_events['events']['event']['url'], location: venue['postalcode'], lat: venue['location']['geo:point']['geo:lat'], long: venue['location']['geo:point']['geo:long'])
+      event = Event.create!(title: @lastfm_events['events']['event']['title'], venue: venue['name'], date: @lastfm_events['events']['event']['startDate'], url: @lastfm_events['events']['event']['url'], location: venue['location']['postalcode'], lat: venue['location']['geo:point']['geo:lat'], long: venue['location']['geo:point']['geo:long'])
       EventArtist.create!(artist_id: artist_id, event_id: event.id) unless EventArtist.where(artist_id: artist_id, event_id: event.id)[0]
     else  
       @lastfm_events['events']['event'].each do |events|
@@ -39,7 +39,7 @@ class EventWorker
         output
 
         event = Event.where(url: output['url'])[0]
-        event = Event.create!(title: output['title'], venue: output['venue']['name'], location: output['venue']['postalcode'], date: output['startDate'], url: output['url'], lat: output['venue']['location']['geo:point']['geo:lat'], long: output['venue']['location']['geo:point']['geo:long']) unless event
+        event = Event.create!(title: output['title'], venue: output['venue']['name'], location: output['venue']['location']['postalcode'], date: output['startDate'], url: output['url'], lat: output['venue']['location']['geo:point']['geo:lat'], long: output['venue']['location']['geo:point']['geo:long']) unless event
         
         EventArtist.create!(artist_id: artist_id, event_id: event.id) unless EventArtist.where(artist_id: artist_id, event_id: event.id)[0]
       end
