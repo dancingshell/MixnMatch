@@ -1,18 +1,13 @@
 mixnApp.controller('MixnMatchCtrl', ['$scope', '$http', function($scope, $http) {
 
   // Angular Loaded
-  console.log('angular loaded!');
-
-
+ 
   var duration = 1; // track the duration of the currently playing track
   $(document).ready(function() {
     $('#api').bind('ready.rdio', function() {
-
-      // $(this).rdio().play('a171827');
-      
+      $('#art').attr('src', $scope.artist_image);
     });
     $('#api').bind('playingTrackChanged.rdio', function(e, playingTrack, sourcePosition) {
-      console.log(e);
       if (playingTrack) {
         console.log(playingTrack);
         duration = playingTrack.duration;
@@ -22,7 +17,6 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', '$http', function($scope, $http) 
         $('#artist').text(playingTrack.artist);
       }
       else {
-        console.log(e);
       }
       });
     $('#api').bind('positionChanged.rdio', function(e, position) {
@@ -37,13 +31,29 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', '$http', function($scope, $http) 
         $('#pause').show();
       }
     });
-    // this is a valid playback token for localhost.
-    // but you should go get your own for your own domain.
-    $('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
+    // playback token for heroku site
+    if (window.location.hostname != "localhost") {
+    	$('#api').rdio('GBdUIcnK_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbm1peG5tYXRjaC5oZXJva3VhcHAuY29t_MDD2Jq5eqMoaoXEvAwRww==');
+    }
+    // playback token for localhost
+    else { 
+    	$('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
+    }
 
     $('#previous').click(function() { $('#api').rdio().previous(); });
-    $('#play').click(function() { $('#api').rdio().play('artist/Daft_Punk/album/Random_Access_Memories/track/Give_Life_Back_to_Music'); });
-    $('#pause').click(function() { $('#api').rdio().pause(); });
+    
+    $('#pause').click(function() {
+    	$('#api').rdio().pause();
+    	$scope.active_player = true;
+    });
+    // check to start play or resume play
+    if ($scope.active_player == true) {
+    	$('#play').click(function() { $('#api').rdio().play(); });
+    }
+    else {
+    	$('#play').click(function() { $('#api').rdio().play($scope.my_top_songs_key); });
+    }
+
     $('#next').click(function() { $('#api').rdio().next(); });
   });
 
