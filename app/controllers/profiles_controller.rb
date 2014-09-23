@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
     @profile.user = current_user
     if @profile.save
-      redirect_to root_path
+      redirect_to accounts_path
     else
       render 'new'
     end

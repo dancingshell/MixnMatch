@@ -31,10 +31,10 @@ class ApplicationController < ActionController::Base
   end
 
   def get_artists(artist_name, provider)
-    # create new artist in DB for each artist imported if artist does not already exist
+    # Create new artist in DB for each artist imported if artist does not already exist
     artist = Artist.where(name: artist_name).first
     artist = Artist.create!(name: artist_name) unless artist
-    #make a join table match between that user and their bands
+    # Make a join table match between that user and their bands
     user_artist = UserArtist.where(user: current_user, artist: artist).first
     UserArtist.create!(user: current_user, artist: artist, provider: provider) unless user_artist
   end

@@ -22,6 +22,9 @@ class StaticController < ApplicationController
           get_artists(band["name"], "facebook")
         end
       end
+
+      @artists = current_artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
+
     else
       redirect_to welcome_path
     end
