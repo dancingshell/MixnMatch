@@ -26,4 +26,7 @@ MixnMatch::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  #ENV["REDISTOGO_URL"] =  ENV["REDISTOGO_URL"]
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:6f98f63fe8280aa4f4bfdb937e547822@cod.redistogo.com:10271/'
 end
