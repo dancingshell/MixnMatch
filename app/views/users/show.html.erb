@@ -12,6 +12,7 @@
     Birthday: <%= @profile.birthday.strftime(' %B %d, %Y') %>
     <%= @profile.is_birthday(@user, current_user) %><br />
     Orientation: <%= @profile.orientation %><br />
+    Location: <%= @profile.zipcode %><br />
     
 <% else %>
 
