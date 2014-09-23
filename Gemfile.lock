@@ -219,7 +219,6 @@ DEPENDENCIES
   rails (= 4.0.4)
   rails_12factor
   rdio_api
-  redis
   rspotify (~> 1.2.0)
   sass-rails (~> 4.0.2)
   sdoc
