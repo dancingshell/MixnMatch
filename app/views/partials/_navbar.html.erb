@@ -23,7 +23,7 @@
                         </div>
                     </form>
                 </li>
-                <a class="navbar-text" href="<%= user_path(current_user.profiles.first.username) %>">My Profile</a>
+                <a class="navbar-text" href="<%= user_path(current_user.profiles.first ) %>">My Profile</a>
                 <a class="navbar-text" href="<%= root_path %>">My Artists</a>
                 <a class="navbar-text" href="<%= artists_path %>">Browse Artists</a>
                 <a class="navbar-text" href="<%= users_path %>">Browse Users</a>

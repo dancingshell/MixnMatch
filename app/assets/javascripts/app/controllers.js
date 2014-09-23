@@ -3,7 +3,7 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', '$http', function($scope, $http) 
   // Angular Loaded
   console.log('angular loaded!');
 
-  
+
   var duration = 1; // track the duration of the currently playing track
   $(document).ready(function() {
     $('#api').bind('ready.rdio', function() {
@@ -42,20 +42,20 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', '$http', function($scope, $http) 
     $('#api').rdio('GAlNi78J_____zlyYWs5ZG02N2pkaHlhcWsyOWJtYjkyN2xvY2FsaG9zdEbwl7EHvbylWSWFWYMZwfc=');
 
     $('#previous').click(function() { $('#api').rdio().previous(); });
-    $('#play').click(function() { $('#api').rdio().play('rr46610'); });
+    $('#play').click(function() { $('#api').rdio().play('artist/Daft_Punk/album/Random_Access_Memories/track/Give_Life_Back_to_Music'); });
     $('#pause').click(function() { $('#api').rdio().pause(); });
     $('#next').click(function() { $('#api').rdio().next(); });
   });
 
-  $http({method: 'GET', url: '/someUrl'}).
-success(function(data, status, headers, config) {
-  // this callback will be called asynchronously
-  // when the response is available
-}).
-error(function(data, status, headers, config) {
-  // called asynchronously if an error occurs
-  // or server returns response with an error status.
-});
-
+ 	$http({method: 'GET', url: '#{rdio}().search("Feist")'}).
+	success(function(data, status, headers, config) {
+		console.log(data.body);
+	  // this callback will be called asynchronously
+	  // when the response is available
+	}).
+	error(function(data, status, headers, config) {
+	  // called asynchronously if an error occurs
+	  // or server returns response with an error status.
+	});
 
 }]);
