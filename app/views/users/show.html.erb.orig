@@ -17,6 +17,7 @@
     Bio: <%= @profile.summary %><br />
     Birthday: <%= @profile.birthday.strftime(' %B %d, %Y') %>
     <%= @profile.is_birthday(@user, current_user) %><br />
+<<<<<<< HEAD
     <%= @profile.orientation %> <%= @profile.gender %><br>
     <%= @profile.zipcode %>
 
@@ -31,6 +32,10 @@
     <% else %>
         What?
     <% end %>
+=======
+    Orientation: <%= @profile.orientation %><br />
+    Location: <%= @profile.zipcode %><br />
+>>>>>>> d09572f39c703dfc33488fd67fe33e7ede0caead
     
 <% else %>
 

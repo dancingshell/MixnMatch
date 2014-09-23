@@ -26,6 +26,6 @@ class ArtistsController < ApplicationController
 
   private
   def artist_params
-  	params.require(:aritst).permit(:name, :genre)
+  	params.require(:aritst).permit(:name, :genre, :image)
   end
 end

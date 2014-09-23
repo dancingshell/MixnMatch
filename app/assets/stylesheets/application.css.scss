@@ -19,14 +19,47 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
-.artist-box {
-	height: 150px;
-	width: 150px;
-	border: 2px solid black;
-	margin: 5px;
+// Mixins
+@mixin translate-center($x, $y) {
+  left: $x;
+  position: absolute;
+  top: $y;
+  -webkit-transform: translateX(-$x) translateY(-$y);
+  -moz-transform: translateX(-$x) translateY(-$y);
+  -ms-transform: translateX(-$x) translateY(-$y);
+  transform: translateX(-$x) translateY(-$y);
 }
 
-// Temporary fix for testing
-.image-box {
-  max-width: 100%;
+// Body
+.artist-image {
+  margin: 0.5%;
+  padding-bottom: 19%;
+  width: 19%;
+
+  .artist-title {
+    background: rgba(0, 0, 0, .6);
+    color: #fff;
+    height: 100%;
+    opacity: 0;
+    text-align: center;
+    @include translate-center(50%, 50%);
+    width: 100%;
+
+    .artist-name {
+      font-size: 2em;
+      line-height: 1.25em;
+      margin: 0;
+      overflow: hidden;
+      @include translate-center(50%, 50%);
+    }
+  }
 }
+
+.artist-title:hover {
+  opacity: 1;
+  transition: .2s;
+}
+
+
+
+

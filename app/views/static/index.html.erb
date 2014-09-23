@@ -1,36 +1,40 @@
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=676734455755914&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=676734455755914&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
-<div id="user-widget">
+<div id="user-widget"></div>
+
+Welcome <strong><%= current_user.name %></strong>!
+<br><br>
+<%= image_tag current_user.avatar, size: "100" if current_user.avatar %>
 
 <div class="fb-like" data-href="https://developers.facebook.com/mixnmatch" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-  <% if current_user %>
-    Welcome <strong><%= current_user.name %></strong>!<br>
-    <%#= current_user.inspect %> <%#= image_tag current_user.avatar %>
-    <br><%#= image_tag current_user.avatar, size: "100" if current_user.avatar %>
-  
-    <div class="row">
-      <% current_artists.each do |artist| %>
-        <div class="col-sm-1 artist-box text-center">
-          <b><%= link_to artist.name, artist_path(artist) %></b><br/>
-          <%= image_tag artist.genre, class: 'image-box' %>
-          <br>
-          <% UserArtist.where(user: current_user, artist: artist).each do |artist| %>
-            <%= artist.provider %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-     <a href="/auth/facebook" id="sign_in"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
-  <% end %>
-</div>
 
-<%= link_to 'Monitoring', sidekiq_web_path %>
-<%#= current_user.inspect %>
+<br><br>
+
+
+<% @artists.each do |a| %>
+<% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row"><% end %>
+    <a href="<%= artist_path(a) %>">
+
+        <div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover'}">
+
+            <div class="artist-title">
+                <h3 class="artist-name"><%= a.name %></h3>
+            </div>
+
+        </div>
+
+    </a>
+<% if (@artists.index(a)+1) % 5 == 0 %></div><% end %>
+<% end %>
+  
+
+<br><br>

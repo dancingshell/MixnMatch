@@ -23,7 +23,9 @@
                         </div>
                     </form>
                 </li>
-                <a class="navbar-text" href="<%= user_path(current_user.profiles.first.username) %>">My Profile</a>
+                <% unless current_user.profiles.first.nil? %>
+                    <a class="navbar-text" href="<%= user_path(current_user.profiles.first.username) %>">My Profile</a>
+                <% end %>
                 <a class="navbar-text" href="<%= root_path %>">My Artists</a>
                 <a class="navbar-text" href="<%= artists_path %>">Browse Artists</a>
                 <a class="navbar-text" href="<%= users_path %>">Browse Users</a>
@@ -48,8 +50,10 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= fa_icon 'gear' %></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><%= link_to 'View Profile', user_path(current_user.profiles.first.username) %></li>
-                                <li class="divider"></li>
+                                <% unless current_user.profiles.first.nil? %>
+                                    <li><%= link_to 'View Profile', user_path(current_user.profiles.first.username) %></li>
+                                    <li class="divider"></li>
+                                <% end %>
                                 <% if current_user.profiles.first %>
                                     <li><%= link_to 'Profile Settings', edit_profile_path(current_user.profiles.first.id) %></li>
                                 <% else %>

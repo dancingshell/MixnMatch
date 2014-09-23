@@ -6,7 +6,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(params[:username])
-    @profile = @user.profiles.first
+    @profile = Profile.find_by(user_id: @user.id)
+    @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
   end
 
   def new
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
     @user.avatar = params[:user][:avatar].last if params[:user][:avatar]
     if @user.save
       session[:user_id] = @user.id.to_s
-      redirect_to accounts_path
+      redirect_to new_profile_path
     else
       render 'new'
     end
