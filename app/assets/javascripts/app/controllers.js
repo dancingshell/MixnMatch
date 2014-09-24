@@ -1,5 +1,4 @@
-mixnApp.controller('MixnMatchCtrl', ['$scope', '$http', function($scope, $http) {
-mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', function($scope, MatchData) {
+mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($scope, MatchData, $http) {
 
   // Angular Loaded
  
