@@ -57,16 +57,6 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
     $('#next').click(function() { $('#api').rdio().next(); });
   });
 
- 	$http({method: 'GET', url: '#{rdio}().search("Feist")'}).
-	success(function(data, status, headers, config) {
-		console.log(data.body);
-	  // this callback will be called asynchronously
-	  // when the response is available
-	}).
-	error(function(data, status, headers, config) {
-	  // called asynchronously if an error occurs
-	  // or server returns response with an error status.
-	});
 
   //Get Matches
   $scope.matches = {};
