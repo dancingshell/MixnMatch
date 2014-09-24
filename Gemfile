@@ -17,9 +17,6 @@ gem 'active_model_serializers'
 # HTTP Party
 gem 'httparty'
 
-# Delayed Job
-# gem 'delayed_job_active_record'
-
 # Use postgresql as the database for Active Record
 gem 'pg'
 

@@ -9,7 +9,11 @@ class SessionsController < ApplicationController
         # goes through User model
         user = User.from_omniauth(env['omniauth.auth'])
         session[:user_id] = user.id
-        redirect_to new_profile_path
+        if current_user.profiles.first.nil?
+          redirect_to new_profile_path
+        else
+          redirect_to root_path
+        end
 
         # Find events for artists on delay ( method in app controller )
         current_artists.each { |a| EventWorker.perform_async(a.id) }
