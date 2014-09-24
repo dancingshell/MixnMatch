@@ -38,6 +38,17 @@ body {
   }
 
 
+  .navbar-avatar {
+    top: .75em;
+    width: 2em;
+
+    .avatar {
+      border-radius: 4px;
+      padding-bottom: 100%;
+      width: 100%;
+    }
+  }
+
   .artists {
     margin-left: -.5%;
     margin-right: -.5%;
