@@ -24,7 +24,7 @@ MixnMatch::Application.routes.draw do
 
   # Facebook/spotify callback for login
   
-  match 'auth/:faceback/callback', to: 'sessions#create', via: [:get, :post]
+  match 'auth/:facebook/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
 
   

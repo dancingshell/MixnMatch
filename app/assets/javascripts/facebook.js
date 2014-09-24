@@ -24,7 +24,7 @@ function fblogin() {
       //adding permissions
       FB.login(function(response) {
         Log.info('FB.login response', response);
-      }, {scope: 'user_likes, user_birthday, user_location'});
+      }, {scope: 'user_likes, user_birthday, user_location, public_profile, email', auth_type: 'rerequest'});
 
       location.href =
         '/auth/facebook/callback?' +

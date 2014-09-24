@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   
   def self.from_omniauth(auth)
+    #raise auth.inspect
     where(auth.slice(:facebook, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
