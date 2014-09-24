@@ -26,8 +26,8 @@ class SessionsController < ApplicationController
         if facebook.save
           redirect_to accounts_path
         end
-      else
       # Spotify
+      else
         spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
         # Access private data
         spotify_account = UserAccount.where(user: current_user, provider: 'spotify').first

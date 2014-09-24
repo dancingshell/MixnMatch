@@ -64,8 +64,10 @@
                                 <li class="divider"></li>
                                 <li><%= link_to 'Account Settings', edit_user_path(current_user) %></li>
                                 <li class="divider"></li>
-                                <li><%= link_to 'Music Apps', accounts_path %></li>
-                                <li class="divider"></li>
+                                <% unless current_user.profiles.first.nil? %>
+                                    <li><%= link_to 'Music Apps', accounts_path %></li>
+                                    <li class="divider"></li>
+                                <% end %>
                                 <li><%= link_to 'Log Out', signout_path %></li>
                             </ul>
                         </li>
