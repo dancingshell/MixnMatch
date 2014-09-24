@@ -62,6 +62,10 @@ gem 'foreman'
 # Image hosing on AWS
 gem 'aws-sdk'
 
+# Google API
+gem 'google-api-client'
+gem 'omniauth-google-oauth2'
+
 # Heroku deployment
 gem 'rails_12factor', group: :production
 

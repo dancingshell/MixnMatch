@@ -10,6 +10,9 @@
 
 <br>
 
+
+<%#= link_to 'Google', '/auth/:google_oauth2/callback/' %>
+
 <% if current_user.user_accounts.find_by(provider: 'spotify') %>
     <h4>Spotify linked!</h4>
 <% else %>
