@@ -43,11 +43,15 @@ body {
     margin-right: -.5%;
 
     .artist-image {
+      border-radius: 4px;
       margin: 0.5%;
       padding-bottom: 19%;
       width: 19%;
 
       .artist-title {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        box-shadow: 0 .25em rgba(0, 0, 0, .8);
         background: rgba(0, 0, 0, .45);
         color: rgba(255, 255, 255, .75);
         text-align: center;
