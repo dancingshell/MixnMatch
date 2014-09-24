@@ -3,6 +3,9 @@ class MatchesController < ApplicationController
   end
 
   def index
+    @matches = Match.where(:matchee_id => current_user, status: "requested") 
+    @accepted = Match.where(:matchee_id => current_user, status: "accepted")
+
  
   end
 
@@ -22,10 +25,27 @@ class MatchesController < ApplicationController
     render json: @sorted_results
   end
 
+  def create
+    match = Match.new(match_params)
+    if match.save
+      redirect_to :back
+    end
+  end
 
+  def update
+    match = Match.find(params[:id])
+    match.update!(match_params)
+    if match.save
+      redirect_to :back
+    end
+
+  end
 
   
-
+private
+  def match_params
+    params.require(:match).permit(:matchee_id, :matcher_id, :status)
+  end
 
 
 end

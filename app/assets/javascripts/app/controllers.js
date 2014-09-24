@@ -1,5 +1,4 @@
-mixnApp.controller('MixnMatchCtrl', ['$scope', '$http', function($scope, $http) {
-mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', function($scope, MatchData) {
+mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($scope, MatchData, $http) {
 
   // Angular Loaded
  
@@ -58,17 +57,6 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', function($scope, Mat
     $('#next').click(function() { $('#api').rdio().next(); });
   });
 
- 	$http({method: 'GET', url: '#{rdio}().search("Feist")'}).
-	success(function(data, status, headers, config) {
-		console.log(data.body);
-	  // this callback will be called asynchronously
-	  // when the response is available
-	}).
-	error(function(data, status, headers, config) {
-	  // called asynchronously if an error occurs
-	  // or server returns response with an error status.
-	});
-
   //Get Matches
   $scope.matches = {};
   $scope.lookingfor = {};
@@ -78,6 +66,7 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', function($scope, Mat
   $scope.option = {
     choices: [
     {name: 'Show All'},
+    {name: 'Just Friends', friendship: true},
     {name:'Men who like Women', gender: 'Male', orientation: 'Straight'}, 
     {name:'Women who like Men', gender: 'Female', orientation: 'Straight'},
     {name:'Women who like Men', gender: 'Male', orientation: 'Straight'}
@@ -114,8 +103,9 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', function($scope, Mat
       return true;
     } else if ($scope.filterItem.choice.name === "Show All") {
       return true;
-    }
-     else {
+    } else if (m[1][1].friendship === $scope.filterItem.choice.friendship) {
+      return true;
+    } else {
       return false;
     }
   };  

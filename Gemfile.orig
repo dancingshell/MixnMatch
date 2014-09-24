@@ -35,7 +35,6 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -70,15 +69,14 @@ gem 'rails_12factor', group: :production
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
-#For Chat 
-gem 'private_pub'
-gem 'thin', '~> 1.6.2'
 
 
-
-
+<<<<<<< HEAD
+ruby '2.1.1'
+=======
 
 # ruby '2.1.1'
+>>>>>>> KyleR
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
