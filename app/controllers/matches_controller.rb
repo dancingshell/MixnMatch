@@ -2,11 +2,15 @@ class MatchesController < ApplicationController
   def new
   end
 
+  def show
+    @match = Match.find(params[:id])
+    @messages = Message.where(match_id: @match.id)
+  end
+
   def index
     @matches = Match.where(:matchee_id => current_user, status: "requested") 
     @accepted = Match.where(:matchee_id => current_user, status: "accepted")
-
- 
+    @accepted2 = Match.where(:matcher_id => current_user, status: "accepted")
   end
 
   def match_json
@@ -28,6 +32,7 @@ class MatchesController < ApplicationController
   def create
     match = Match.new(match_params)
     if match.save
+
       redirect_to :back
     end
   end
@@ -46,6 +51,11 @@ private
   def match_params
     params.require(:match).permit(:matchee_id, :matcher_id, :status)
   end
+
+  def message_params
+    params.require(:message).permit(:content, :match_id)
+  end
+
 
 
 end

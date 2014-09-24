@@ -33,9 +33,9 @@
 
 Your Match Requests:
 <% @matches.each do |m| %>
-  <li><% @name = User.where(id: m.matcher_id).first.name %>
+  <li><% @name = Profile.where(user_id: m.matcher_id).first.username %>
   <%= @name %>
-  <%= link_to "VIEW PROFILE", user_path(m.matcher_id) %> 
+  <%= link_to "VIEW PROFILE", user_path(@name) %> 
   <%= form_for m do |f| %>
     <%= f.hidden_field :status, :value => "accepted" %>
     <%= f.submit "Accept Request" %>
@@ -49,11 +49,17 @@ Your Match Requests:
 Your Conversations:
 
 <% @accepted.each do |m| %>
-<% @name = User.where(id: m.matcher_id).first.name %>
+<% @name = Profile.where(user_id: m.matcher_id).first.username %>
   <%= @name %>
-  <%= link_to "VIEW PROFILE", user_path(m.matcher_id) %> 
+  <%= link_to "VIEW PROFILE", user_path(@name) %> 
+  <%= link_to "Chat", match_path(m) %> 
 <% end %>
-
+<% @accepted2.each do |m| %>
+<% @name = Profile.where(user_id: m.matcher_id).first.username %>
+  <%= @name %>
+  <%= link_to "VIEW PROFILE", user_path(@name) %> 
+  <%= link_to "Chat", match_path(m) %> 
+<% end %>
 
 
     

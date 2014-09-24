@@ -57,9 +57,14 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
     $('#next').click(function() { $('#api').rdio().next(); });
   });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1bec5caca0b5dbe5325ac9cf7a3ab6599e6da41c
   //Get Matches
   $scope.matches = {};
   $scope.lookingfor = {};
+  $scope.filtered = [];
   $scope.agemin = '';
   $scope.agemax = '';
   $scope.option = {

@@ -6,9 +6,11 @@ class MessagesController < ApplicationController
   end
 
   def create
+  
     @message = Message.create!(message_params)
+    
      #PrivatePub.publish_to("/messages/new", message: @message)
-    PrivatePub.publish_to("/messages/new", "alert('#{@message.content}');")
+    PrivatePub.publish_to("/messages/new", "console.log('#{@message.content}');")
     
   end
 
@@ -28,7 +30,7 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content, :match_id)
+    params.require(:message).permit(:content, :match_id, :user_id, :name)
   end
 
  #  after_save :notify_slide_change

@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     if Profile.find_by(username: params[:id]).nil?
       redirect_to root_path
     else
+      @match = Match.new
       @user = Profile.find_by(username: params[:id]).user
       @profile = Profile.find_by(user_id: @user.id)
       @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
