@@ -9,3 +9,19 @@
 		<%= link_to "Remove from collection", artist_user_artist_path(artist.id, current_user), method: :delete %></li>
 	<% end %>
 <% end %>
+
+<% @artists.each do |a| %>
+<% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row artists"><% end %>
+    <a href="<%= artist_path(a) %>">
+
+        <div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
+    
+            <div class="artist-title">
+                <p><%= a.name %></p>
+            </div>
+
+        </div>
+
+    </a>
+<% if (@artists.index(a)+1) % 5 == 0 || @artists.index(a) == @artists.count - 1 %></div><% end %>
+<% end %>

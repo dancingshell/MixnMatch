@@ -12,9 +12,9 @@ MixnMatch::Application.routes.draw do
   resources :artists do
     resources :user_artists
   end
-  resources :matches, shallow: true do
+  resources :matches 
     resources :messages
-  end
+  
   resources :events, shallow: true do
     resources :groups
   end
@@ -23,10 +23,10 @@ MixnMatch::Application.routes.draw do
 
 
   # Facebook/spotify callback for login
-  
+  match 'auth/:google_oauth2/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/:facebook/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
-
+  
   
 
   # Welcome / Sign Up

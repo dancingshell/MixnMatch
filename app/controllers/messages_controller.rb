@@ -1,16 +1,34 @@
 class MessagesController < ApplicationController
-	include ActionController::Live
+	# include ActionController::Live
+
+  def index
+    @messages = Message.all
+  end
+
+  def create
+    @message = Message.create!(message_params)
+     #PrivatePub.publish_to("/messages/new", message: @message)
+    PrivatePub.publish_to("/messages/new", "alert('#{@message.content}');")
+    
+  end
+
 
   def new
   end
 
-  def index
-  end
+  
 
   def show
   end
 
   def edit
+  end
+
+
+  private
+
+  def message_params
+    params.require(:message).permit(:content, :match_id)
   end
 
  #  after_save :notify_slide_change
