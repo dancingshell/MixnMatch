@@ -33,7 +33,22 @@ class ApplicationController < ActionController::Base
   def get_artists(artist_name, provider)
     # Create new artist in DB for each artist imported if artist does not already exist
     artist = Artist.where(name: artist_name).first
-    artist = Artist.create!(name: artist_name) unless artist
+    unless artist
+      client = RdioApi.new(consumer_key: ENV['RDIO_KEY'], consumer_secret: ENV['RDIO_SECRET'])
+      result = client.search(query: artist_name, types: "Artist")
+
+      if result["results"] != []
+        # adds Rdio keys for player if they exist
+        @radio_key = result["results"][0]["radioKey"]
+        @songs_key = result["results"][0]["topSongsKey"]
+        artist = Artist.create!(name: artist_name, radio_key: @radio_key, top_songs_key: @songs_key)
+      else
+        # otherwise creates artist without Rdio key
+        artist = Artist.create!(name: artist_name)
+      end
+    end
+
+    # Add artist images from Last.fm
     ImageWorker.perform_async(artist.id)
 
     # Make a join table match between that user and their bands

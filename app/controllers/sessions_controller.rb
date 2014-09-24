@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
         if facebook.save
           redirect_to accounts_path
         end
-      else
+      else env["omniauth.auth"].provider == "spotify"
       # Spotify
         spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
         # Access private data
@@ -41,7 +41,10 @@ class SessionsController < ApplicationController
           end 
         end
         redirect_to accounts_path
+  
       end
+    elsif true
+      raise env["omniauth.auth"].inspect
     # MixnMatch
     else
       user = User.where(email: params[:user][:email], provider: "mixnmatch").first

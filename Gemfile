@@ -62,6 +62,10 @@ gem 'foreman'
 # Image hosing on AWS
 gem 'aws-sdk'
 
+# Google API
+gem 'google-api-client'
+gem 'omniauth-google-oauth2'
+
 # Heroku deployment
 gem 'rails_12factor', group: :production
 
@@ -71,7 +75,8 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 
 
 
-ruby '2.1.1'
+
+# ruby '2.1.1'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

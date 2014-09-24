@@ -11,6 +11,12 @@ class UsersController < ApplicationController
       @user = Profile.find_by(username: params[:id]).user
       @profile = Profile.find_by(user_id: @user.id)
       @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
+
+      # Not sure what is doing?
+      @user_artists = current_user.artists.map(&:name)
+      @friend_artists = @user.artists.map(&:name)
+      @count = @user_artists & @friend_artists
+      @love_results = @count.count
     end
   end
 
