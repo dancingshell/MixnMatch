@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
       user.password = "default"
       user.password_confirmation = "default"
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      user.avatar = "https://graph.facebook.com/v2.1/#{auth.uid}/picture?width=500"
       user.save!
     end
   end 
