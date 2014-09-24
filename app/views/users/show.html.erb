@@ -2,6 +2,17 @@
 
 <div class="col-md-9">
 
+<h1><%= @user.name %></h1>
+
+<%= form_for @match do |f| %>
+    <%= f.hidden_field :matcher_id, :value => current_user.id %>
+    <%= f.hidden_field :matchee_id, :value => @user.id %>
+    <%= f.hidden_field :status, :value => "requested" %>
+    <%= f.submit "Request to Chat" %>
+<% end %>
+
+
+
 
 <div class="row profile-head">
 

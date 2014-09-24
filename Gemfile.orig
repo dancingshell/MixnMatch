@@ -17,6 +17,9 @@ gem 'active_model_serializers'
 # HTTP Party
 gem 'httparty'
 
+# Delayed Job
+# gem 'delayed_job_active_record'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
@@ -31,7 +34,6 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -60,10 +62,6 @@ gem 'foreman'
 # Image hosing on AWS
 gem 'aws-sdk'
 
-# Google API
-gem 'google-api-client'
-gem 'omniauth-google-oauth2'
-
 # Heroku deployment
 gem 'rails_12factor', group: :production
 
@@ -71,15 +69,14 @@ gem 'rails_12factor', group: :production
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
-#For Chat 
-gem 'private_pub'
-gem 'thin', '~> 1.6.2'
 
 
-
-
+<<<<<<< HEAD
+ruby '2.1.1'
+=======
 
 # ruby '2.1.1'
+>>>>>>> KyleR
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
