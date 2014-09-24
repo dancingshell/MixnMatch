@@ -42,6 +42,7 @@ class UsersController < ApplicationController
   def edit
     if current_user == User.find(params[:id])
       @user = current_user
+      @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
     else
       redirect_to welcome_path
     end
@@ -49,6 +50,7 @@ class UsersController < ApplicationController
 
   def update
     if current_user.update_attributes(user_params)
+      current_user.avatar = params[:user][:avatar].last if params[:user][:avatar]
       redirect_to root_path
     else
       render 'edit'
