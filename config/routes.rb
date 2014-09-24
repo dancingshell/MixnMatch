@@ -12,9 +12,9 @@ MixnMatch::Application.routes.draw do
   resources :artists do
     resources :user_artists
   end
-  resources :matches, shallow: true do
+  resources :matches 
     resources :messages
-  end
+  
   resources :events, shallow: true do
     resources :groups
   end

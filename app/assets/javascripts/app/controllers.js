@@ -57,7 +57,6 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
     $('#next').click(function() { $('#api').rdio().next(); });
   });
 
-
   //Get Matches
   $scope.matches = {};
   $scope.lookingfor = {};
@@ -67,6 +66,7 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
   $scope.option = {
     choices: [
     {name: 'Show All'},
+    {name: 'Just Friends', friendship: true},
     {name:'Men who like Women', gender: 'Male', orientation: 'Straight'}, 
     {name:'Women who like Men', gender: 'Female', orientation: 'Straight'},
     {name:'Women who like Men', gender: 'Male', orientation: 'Straight'}
@@ -103,8 +103,9 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
       return true;
     } else if ($scope.filterItem.choice.name === "Show All") {
       return true;
-    }
-     else {
+    } else if (m[1][1].friendship === $scope.filterItem.choice.friendship) {
+      return true;
+    } else {
       return false;
     }
   };  
