@@ -31,35 +31,46 @@
 }
 
 // Body
-.artist-image {
-  margin: 0.5%;
-  padding-bottom: 19%;
-  width: 19%;
+body {
+  
+  p {
+    font-size: 1.25em;
+  }
 
-  .artist-title {
-    background: rgba(0, 0, 0, .6);
-    color: #fff;
-    height: 100%;
-    opacity: 0;
-    text-align: center;
-    @include translate-center(50%, 50%);
-    width: 100%;
 
-    .artist-name {
-      font-size: 2em;
-      line-height: 1.25em;
-      margin: 0;
-      overflow: hidden;
-      @include translate-center(50%, 50%);
+  .artists {
+    margin-left: -.5%;
+    margin-right: -.5%;
+
+    .artist-image {
+      margin: 0.5%;
+      padding-bottom: 19%;
+      width: 19%;
+
+      .artist-title {
+        background: rgba(0, 0, 0, .6);
+        color: #fff;
+        height: 100%;
+        opacity: 0;
+        text-align: center;
+        @include translate-center(50%, 50%);
+        width: 100%;
+
+        .artist-name {
+          font-size: 2em;
+          line-height: 1.25em;
+          margin: 0;
+          overflow: hidden;
+          @include translate-center(50%, 50%);
+        }
+      }
+    }
+
+    .artist-title:hover {
+      opacity: 1;
+      transition: .2s;
     }
   }
+
 }
-
-.artist-title:hover {
-  opacity: 1;
-  transition: .2s;
-}
-
-
-
 

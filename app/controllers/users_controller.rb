@@ -5,16 +5,19 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(params[:username])
-    @profile = Profile.find_by(user_id: @user.id)
-    @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
-    @user = User.find(params[:id])
-    @profile = @user.profiles.first
+    if Profile.find_by(username: params[:id]).nil?
+      redirect_to root_path
+    else
+      @user = Profile.find_by(username: params[:id]).user
+      @profile = Profile.find_by(user_id: @user.id)
+      @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
 
-    @user_artists = current_user.artists.map(&:name)
-    @friend_artists = @user.artists.map(&:name)
-    @count = @user_artists & @friend_artists
-    @love_results = @count.count
+      # Not sure what is doing?
+      @user_artists = current_user.artists.map(&:name)
+      @friend_artists = @user.artists.map(&:name)
+      @count = @user_artists & @friend_artists
+      @love_results = @count.count
+    end
   end
 
   def new

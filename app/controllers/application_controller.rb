@@ -47,6 +47,10 @@ class ApplicationController < ActionController::Base
         artist = Artist.create!(name: artist_name)
       end
     end
+
+    # Add artist images from Last.fm
+    ImageWorker.perform_async(artist.id)
+
     # Make a join table match between that user and their bands
     user_artist = UserArtist.where(user: current_user, artist: artist).first
     UserArtist.create!(user: current_user, artist: artist, provider: provider) unless user_artist

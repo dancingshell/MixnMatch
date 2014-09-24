@@ -1,17 +1,47 @@
 // Body
 .users_controller {
 
-  .test {
+  .test1 {
     background: pink;
   }
 
-  // Artist Images
-  .artist-title {
-    .artist-name {
-      font-size: 1.25em;
+  .test2 {
+    background: yellow;
+  }
+
+  .test3 {
+    background: grey;
+  }
+
+
+  // Profile Head
+  .profile-head {
+
+    .avatar {
+      margin-top: 25px;
+      padding-bottom: 100%;
+      width: 100%;
     }
   }
-  
+
+  // Profile Side
+  .profile-side {
+    background: grey;
+    // padding-left: 5em;
+  }
+
+
+
+
+
+  // Artist Images
+  .artists {
+    .artist-title {
+      .artist-name {
+        font-size: 1.25em;
+      }
+    }
+  }
 
 
 
