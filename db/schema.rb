@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923172940) do
+ActiveRecord::Schema.define(version: 20140924013601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140923172940) do
     t.string   "image"
     t.string   "radio_key"
     t.string   "top_songs_key"
+    t.string   "name_sanitize"
   end
 
   create_table "authentications", force: true do |t|

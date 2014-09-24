@@ -41,9 +41,7 @@ class SessionsController < ApplicationController
           end 
         end
         redirect_to accounts_path
-  
       end
-    # MixnMatch
     else
       user = User.where(email: params[:user][:email], provider: "mixnmatch").first
       # Checks to see if the user exists, and then for a matching password

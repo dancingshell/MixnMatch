@@ -2,9 +2,8 @@
 
 <div class="col-md-9">
 
-<div class="row profile-head">
 
-<div class="test1">
+<div class="row profile-head">
 
     <div class="col-md-3">
         <div class="avatar" ng-style="{'background-image':'url(<%= @user.avatar %>)', 'background-size':'cover', 'background-position':'center'}"></div>
@@ -21,9 +20,8 @@
         <p><%= @profile.summary %></p>
     </div>
 
-    </div>
-
 </div>
+
 
 
 <br><br>
@@ -43,8 +41,12 @@
     <% end %>
 
 <% else %>
-
-    <%= link_to 'Import artists', accounts_path %>
+    
+    <% if current_user == @user %>
+        <%= link_to 'Import artists', accounts_path %>
+    <% else %>
+        <p><%= @profile.username %> has no artists</p>
+    <% end %>
 
 <% end %>
 
