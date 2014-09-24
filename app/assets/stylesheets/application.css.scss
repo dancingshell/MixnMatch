@@ -48,27 +48,19 @@ body {
       width: 19%;
 
       .artist-title {
-        background: rgba(0, 0, 0, .6);
-        color: #fff;
-        height: 100%;
-        opacity: 0;
+        background: rgba(0, 0, 0, .45);
+        color: rgba(255, 255, 255, .75);
         text-align: center;
-        @include translate-center(50%, 50%);
+        @include translate-center(50%, 100%);
         width: 100%;
 
-        .artist-name {
-          font-size: 2em;
+        p {
+          font-size: 1em;
           line-height: 1.25em;
-          margin: 0;
-          overflow: hidden;
-          @include translate-center(50%, 50%);
+          margin: .5em 0;
         }
+      
       }
-    }
-
-    .artist-title:hover {
-      opacity: 1;
-      transition: .2s;
     }
   }
 
