@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
   def edit
   end
 
-  after_save :notify_slide_change
+  # after_save :notify_slide_change
 	def notify_slide_change
 	  if current_slide_changed?
 	    connection.execute "NOTIFY #{channel}, #{connection.quote current_slide.to_s}"

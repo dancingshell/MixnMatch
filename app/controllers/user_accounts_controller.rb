@@ -82,20 +82,16 @@ class UserAccountsController < ApplicationController
 
   # GET '/accounts'
   def accounts
-    # New user accounts for Rdio & Last.fm
-    @rdio_email = UserAccount.new
-    @lastfm_username = UserAccount.new
+    if current_user
+      # New user accounts for Rdio & Last.fm
+      @rdio_email = UserAccount.new
+      @lastfm_username = UserAccount.new
 
-    # Update artist images from Last.fm after account import
-    Artist.where(genre: nil).each do |artist|
-      ImageWorker.perform_async(artist.id)
+      # Update events for current artists from Last.fm after account import
+      current_artists.each { |a| EventWorker.perform_async(a.id) }
+
+      # Note 1: Refacter to only run EventWorker if necessary
     end
-
-    # Update events for current artists from Last.fm after account import
-    current_artists.each { |a| EventWorker.perform_async(a.id) }
-
-    # Note 1: Refacter to only run EventWorker if necessary
-
   end
 
   private

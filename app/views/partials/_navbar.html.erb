@@ -42,10 +42,12 @@
 
                     <!-- Logged In -->
                     <% if current_user %>
-                        <!-- Welcome -->
-                        <li class="navbar-text">
-                            What up, <%= current_user.name %>!
-                        </li>
+                        <% unless current_user.profiles.first.nil? %>
+                            <!-- Welcome -->
+                            <li class="navbar-text">
+                                <%= current_user.profiles.first.username %>
+                            </li>
+                        <% end %>
                         <!-- Settings -->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= fa_icon 'gear' %></a>

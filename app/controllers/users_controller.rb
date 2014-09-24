@@ -5,9 +5,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(params[:username])
-    @profile = Profile.find_by(user_id: @user.id)
-    @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
+    if Profile.find_by(username: params[:id]).nil?
+      redirect_to root_path
+    else
+      @user = Profile.find_by(username: params[:id]).user
+      @profile = Profile.find_by(user_id: @user.id)
+      @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
+    end
   end
 
   def new
