@@ -192,6 +192,105 @@ body {
   }
 
 
+  // Profile Head
+  .profile-head {
+    padding-right: 15px;
+
+    .avatar {
+      border-radius: 4px;
+      box-shadow: 0 .25em rgba(0, 0, 0, .75);
+      margin-top: 25px;
+      padding-bottom: 100%;
+      width: 100%;
+    }
+
+    .header {
+      background: #ddd;
+      border-radius: 4px;
+      box-shadow: 0 .25em rgba(0, 0, 0, .75);
+      margin: 25px 0 30px;
+      height: 13.35em;
+
+      h1 {
+        margin: 8px 0 0;
+      }
+
+      .details {
+        margin-bottom: .75em;
+      }
+
+      .summary {
+        margin-top: -5px;
+        word-wrap: break-word;
+      }
+    }
+  }
+
+  // Profile Side
+  .profile-side {
+    
+    .match {
+
+      h1 {
+        font-size: 6em;
+        margin: 10px 0 -5px;
+      }
+
+      h3 {
+        margin: 0;
+      }
+
+    }
+
+    .preferences {
+      padding-top: 25px;
+
+      h3 {
+        margin: 0;
+      }
+
+      h4 {
+        margin-bottom: 1em;
+      }
+
+      p {
+        margin-bottom: 1.25em;
+      }
+
+      a {
+        color: #444;
+      }
+
+      .fa-minus {
+        font-size: .75em;
+      }
+
+      .fa-comment {
+        color: $main-color;
+      }
+    }
+  }
+
+
+  // Filter
+  .filter {
+
+    .form-control {
+      display: inline-block;
+      margin-bottom: 1em;
+      width: 25%;
+    }
+  }
+
+
+  // Accounts
+  .spotify {
+    background: #96D600;
+    box-shadow: none;
+    font-size: 1.25em;
+  }
+
+
 }
 
 

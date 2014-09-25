@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :profiles
   has_secure_password
 
+  validates :avatar, presence: true
+
   
   def self.from_omniauth(auth)
     #raise auth.inspect
