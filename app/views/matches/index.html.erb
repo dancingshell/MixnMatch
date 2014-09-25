@@ -46,12 +46,20 @@ Your Conversations:
   <%= @name %>
   <%= link_to "VIEW PROFILE", user_path(@name) %> 
   <%= link_to "Chat", match_path(m) %> 
+<% @last_message = Message.where(match_id: m.id).last.name %>
+  <% if @last_message != current_user.name %>
+     <%= "You're the best" %>
+    <% end %> 
 <% end %>
 <% @accepted2.each do |m| %>
 <% @name = Profile.where(user_id: m.matchee_id).first.username %>
   <%= @name %>
   <%= link_to "VIEW PROFILE", user_path(@name) %> 
   <%= link_to "Chat", match_path(m) %> 
+  <% @last_message = Message.where(match_id: m.id).last.name %>
+  <% if @last_message != current_user.name %>
+    <%= "You're the best" %>
+    <% end %> 
 <% end %>
 
 

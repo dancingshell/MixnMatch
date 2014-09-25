@@ -36,7 +36,9 @@
                                 <%= link_to current_user.profiles.first.username, user_path(current_user.profiles.first.username) %>
                             </li>
                             <li class="navbar-link"><%= link_to (fa_icon 'music'), artists_path %></li>
-                            <li class="navbar-link"><%= link_to (fa_icon 'group'), events_path %></li>
+                            <li class="navbar-link"><%= link_to (fa_icon 'calendar'), events_path %></li>
+                            <li class="navbar-link"><%= link_to (fa_icon 'group'), root_path %></li>
+                            <li class="navbar-link"><%= link_to (fa_icon 'envelope'), root_path %></li>
                         <% end %>
                         <!-- Settings -->
                         <li class="dropdown">

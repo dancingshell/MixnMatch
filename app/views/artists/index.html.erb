@@ -1,15 +1,13 @@
 <h1>Browse Artists</h1>
 
-
-<br><br>
-
+<br>
 
 <% @artists.each do |a| %>
-<% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row artists"><% end %>
-<div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
-    <div class="artist-panel">
-        <%= link_to truncate(a.name, length: 18), artist_path(a), class: 'artist-name' %>
-        <div class="artist-ctrl">
+<% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row images"><% end %>
+<div class="col-sm-3 image-box" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
+    <div class="image-panel">
+        <%= link_to truncate(a.name, length: 18), artist_path(a), class: 'image-name' %>
+        <div class="image-ctrl">
             <%= link_to (fa_icon 'volume-up'), artist_path(a) %>&nbsp;
             <% if current_artists.include? a %>
                 <%= link_to (fa_icon 'heart'), artist_user_artist_path(a.id, current_user), method: :delete %>
@@ -29,6 +27,4 @@
 <% if (@artists.index(a)+1) % 5 == 0 || @artists.index(a) == @artists.count - 1 %></div><% end %>
 <% end %>
 
-
 <br><br>
-
