@@ -2,6 +2,9 @@ class StaticController < ApplicationController
 
   def index
     if current_user
+
+      #####
+
       # finds user account of facebook if user logs in through mixnmatch
       facebook_account = UserAccount.where(provider:"facebook", user: current_user).first if current_user.provider == "mixnmatch"
 
@@ -24,7 +27,16 @@ class StaticController < ApplicationController
         end
       end
 
+      #####
+
+      # Artists
       @artists = current_artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
+      @add_artist = UserArtist.new
+
+      # Matches
+      @matches = Match.where(:matchee_id => current_user, status: "requested") 
+      @accepted = Match.where(:matchee_id => current_user, status: "accepted")
+      @accepted2 = Match.where(:matcher_id => current_user, status: "accepted")
 
     else
       redirect_to welcome_path

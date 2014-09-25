@@ -8,18 +8,18 @@
 <% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row artists"><% end %>
 <div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
     <div class="artist-panel">
-        <%= link_to truncate(a.name, length: 20), artist_path(a), class: 'artist-name' %>
+        <%= link_to truncate(a.name, length: 18), artist_path(a), class: 'artist-name' %>
         <div class="artist-ctrl">
             <%= link_to (fa_icon 'volume-up'), artist_path(a) %>&nbsp;
             <% if current_artists.include? a %>
-                <%= link_to (fa_icon 'minus'), artist_user_artist_path(a.id, current_user), method: :delete %>
+                <%= link_to (fa_icon 'heart'), artist_user_artist_path(a.id, current_user), method: :delete %>
             <% else %>
                 <%= form_for [a, @add_artist] do |f| %>
                     <%= f.hidden_field :user_id, value: current_user.id %>
                     <%= f.hidden_field :artist_id, value: a.id %>
                     <%= f.hidden_field :provider, value: 'provider' %>
                     <%= button_tag type: 'submit' do %>
-                        <%= fa_icon 'plus' %>
+                        <%= fa_icon 'heart' %>
                     <% end %>
                 <% end %>
             <% end %>
@@ -31,26 +31,4 @@
 
 
 <br><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<% @artists.each do |artist| %>
-<li><%= artist.name %>
-	<% unless current_artists.include?(artist) %>
-		<%= link_to " + Artist", artist_user_artists_path(artist.id), method: :post %></li>
-	<% else %>
-		<%= link_to "Remove from collection", artist_user_artist_path(artist.id, current_user), method: :delete %></li>
-	<% end %>
-<% end %>
 
