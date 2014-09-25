@@ -11,13 +11,6 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
 
         facebook_artists
-
-        if current_user.profiles.first.nil?
-          redirect_to new_profile_path
-        else
-          redirect_to root_path
-        end
-
         # Find events for artists on delay ( method in app controller )
         current_artists.each { |a| EventWorker.perform_async(a.id) }
         
@@ -92,7 +85,14 @@ class SessionsController < ApplicationController
           get_artists(band["name"], "facebook")
         end
       end
-      redirect_to accounts_path
+
+      if current_user.profiles.first.nil?
+        redirect_to new_profile_path
+      elsif current_user.profiles.first && current_user.provider == "facebook"
+        redirect_to root_path
+      else
+        redirect_to accounts_path
+      end
     end
   end
 
