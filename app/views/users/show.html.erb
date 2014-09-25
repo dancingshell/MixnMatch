@@ -9,31 +9,31 @@
         <div class="avatar" ng-style="{'background-image':'url(<%= @user.avatar %>)', 'background-size':'cover', 'background-position':'center'}"></div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-9 header">
         <h1><%= @profile.username %></h1>
-        <p>
+        <p class="details">
             <%= @profile.age(@user) %> / <%= @profile.gender.first %> / <%= @profile.zipcode %>
             <% if current_user.id == @user.id %>
                 &nbsp; <%= link_to (fa_icon 'pencil'), edit_profile_path(@profile) %>
             <% end %>
         </p>
-        <p><%= @profile.summary %></p>
+        <p class="summary"><%= @profile.summary %></p>
     </div>
 
 </div>
 
 
 
-<br><br>
+
 
 <% if @artists.count > 0 %>
 
     <% @artists.each do |a| %>
-    <% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row artists"><% end %>
-    <div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
-        <div class="artist-panel">
-            <%= link_to truncate(a.name, length: 15), artist_path(a), class: 'artist-name' %>
-            <div class="artist-ctrl">
+    <% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row images"><% end %>
+    <div class="col-sm-3 image-box" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
+        <div class="image-panel">
+            <%= link_to truncate(a.name, length: 15), artist_path(a), class: 'image-name' %>
+            <div class="image-ctrl">
                 <%= link_to (fa_icon 'volume-up'), artist_path(a) %>&nbsp;
                 <% if current_artists.include? a %>
                     <%= link_to (fa_icon 'heart'), artist_user_artist_path(a.id, current_user), method: :delete %>
@@ -69,40 +69,41 @@
 
 
 
-<div class="col-md-3 test2 profile-side">
-    <h1>Match %</h1>
-    Your match results with this user: <%= @love_results %>
+<div class="col-md-3 profile-side">
 
-    <% unless current_user == @user %>
-        <%= form_for @match do |f| %>
-            <%= f.hidden_field :matcher_id, :value => current_user.id %>
-            <%= f.hidden_field :matchee_id, :value => @user.id %>
-            <%= f.hidden_field :status, :value => "requested" %>
-            <%= f.submit "Request to Chat", class: 'btn btn-primary' %>
+    <div class="match">
+        <% unless current_user == @user %>
+            <h1><%= @love_results %><strike>%</strike></h1>
+            <h3>Musical Match</h3>
+            <br>
+            <%= form_for @match do |f| %>
+                <%= f.hidden_field :matcher_id, :value => current_user.id %>
+                <%= f.hidden_field :matchee_id, :value => @user.id %>
+                <%= f.hidden_field :status, :value => "requested" %>
+                <%= f.submit "Request to Chat", class: 'btn btn-primary' %>
+            <% end %>
         <% end %>
-    <% end %>
+    </div>
 
-    <h1>Like to Message</h1>
-    <h1>MESSAGES</h1>
+    <div class="preferences">
+        <h3>Orientation</h3>
+        <p><%= @profile.orientation %> <%= @profile.gender %></p>
 
+        <h3>Looking for</h3>
+        <% if @profile.relationship && @profile.friendship %>
+            <p>Relationship & Friendship</p>
+        <% elsif @profile.relationship %>
+            <p>Relationship</p>
+        <% elsif @profile.friendship %>
+            <p>Friendship</p>
+        <% else %>
+            <p>What?</p>
+        <% end %>
 
-    <h3>Orientation</h3>
-    <p><%= @profile.orientation %> <%= @profile.gender %></p>
+        <h3>Birthday</h3>
+        <p><%= @profile.birthday.strftime(' %B %d, %Y') %></p>
+    </div>
 
-    <h3>Birthday</h3>
-    <p><%= @profile.birthday.strftime(' %B %d, %Y') %></p>
-
-
-    <h3>Looking for</h3>
-    <% if @profile.relationship && @profile.friendship %>
-        <p>Relationship & Friendship</p>
-    <% elsif @profile.relationship %>
-        <p>Relationship</p>
-    <% elsif @profile.friendship %>
-        <p>Friendship</p>
-    <% else %>
-        <p>What?</p>
-    <% end %>
 
 
 </div> <!-- end col-md-4 -->

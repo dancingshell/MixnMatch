@@ -1,8 +1,12 @@
+// Colors
+$secondary-color: #32c4fe;
+
 // Body
 .users_controller {
 
   .test1 {
     background: pink;
+
   }
 
   .test2 {
@@ -16,20 +20,65 @@
 
   // Profile Head
   .profile-head {
+    padding-right: 15px;
 
     .avatar {
       border-radius: 4px;
-      box-shadow: 0 .25em rgba(0, 0, 0, .8);
+      box-shadow: 0 .25em rgba(0, 0, 0, .75);
       margin-top: 25px;
       padding-bottom: 100%;
       width: 100%;
+    }
+
+    .header {
+      background: #ddd;
+      border-radius: 4px;
+      box-shadow: 0 .25em rgba(0, 0, 0, .75);
+      margin: 25px 0 30px;
+      height: 13.35em;
+
+      h1 {
+        margin: 8px 0 0;
+      }
+
+      .details {
+        margin-bottom: .75em;
+      }
+
+      .summary {
+        margin-top: -5px;
+        word-wrap: break-word;
+      }
     }
   }
 
   // Profile Side
   .profile-side {
-    background: grey;
-    // padding-left: 5em;
+    
+    .match {
+
+      h1 {
+        font-size: 6em;
+        margin: 10px 0 -5px;
+      }
+
+      h3 {
+        margin: 0;
+      }
+
+    }
+
+    .preferences {
+      padding-top: 25px;
+
+      h3 {
+        margin: 0;
+      }
+
+      p {
+        margin-bottom: 1.25em;
+      }
+    }
   }
 
 
