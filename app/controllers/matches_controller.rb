@@ -7,6 +7,7 @@ class MatchesController < ApplicationController
     @messages = Message.where(match_id: @match.id)
   end
 
+  # Delete after testing (transferred to static#index)
   def index
     @matches = Match.where(:matchee_id => current_user, status: "requested") 
     @accepted = Match.where(:matchee_id => current_user, status: "accepted")
