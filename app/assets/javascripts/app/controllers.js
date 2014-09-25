@@ -170,29 +170,7 @@ mixnApp.factory('MatchData', ['$http', function($http){
 }]);
 
 // events API factory
-mixnApp.factory('EventData', ['$http', function($http){
-  var events = {};
 
-  events.getData = function(){
-    var domain = window.location.hostname;
-    var url;
-    var hostname;
-    
-    if (domain == "localhost") {
-      hostname = "localhost:3000"
-    }
-    else {
-      hostname = "mixnmatch.herokuapp.com"
-    }
-
-    url = "http://"+ hostname + "/api/events/";
-    var endpoint = url; 
-    return $http({ method: 'GET', url: endpoint });
-  };
-
-  return events;
-
-}]);
 
 
 

@@ -80,7 +80,8 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'private_pub'
 gem 'thin', '~> 1.6.2'
 
-
+#maps
+gem "geocoder"
 
 
 

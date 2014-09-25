@@ -95,6 +95,7 @@ GEM
     foreman (0.75.0)
       dotenv (~> 0.11.1)
       thor (~> 0.19.1)
+    geocoder (1.2.5)
     google-api-client (0.6.4)
       addressable (>= 2.3.2)
       autoparse (>= 0.3.3)
@@ -283,6 +284,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   font-awesome-rails
   foreman
+  geocoder
   google-api-client
   httparty
   jquery-rails

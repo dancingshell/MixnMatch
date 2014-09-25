@@ -1,19 +1,4 @@
-mixnApp.controller('MapCtrl', ['$scope', function($scope) {
-  
-
-var x = document.getElementById("demo");
-$scope.getLocation = function() {
-  alert("test");
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude; 
-}
+mixnApp.controller('MapCtrl', ['$scope', '$http', 'EventData', function($scope, $http, EventData) {
 
   // Map
   var map;
@@ -28,55 +13,83 @@ function showPosition(position) {
 
   };
 
-
   // Google Maps Initialize
   $scope.mapInit = function() {
 
     // Map Canvas
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-  }();
-
-  // function createImage(url){
-  //   var image = {
-  //     url: url,
-  //     // This marker is 32 pixels wide by 32 pixels tall.
-  //     size: new google.maps.Size(32, 32),
-  //     // The origin for this image is 0,0.
-  //     origin: new google.maps.Point(0,0),
-  //     // The anchor for this image is the base of the flagpole at 0,32.
-  //     anchor: new google.maps.Point(5, 32)
-  //   };
-  //   return image;
-  // }
-
-  function createInfoWindow(text){
-    var infowindow = new google.maps.InfoWindow({
-      content: text
-    });
-    return infowindow;
-  }
+  };
 
   var marker;
-  function createMarker(coords, map, title){
-    marker = new google.maps.Marker({
-      position: coords,
-      map: map,
-      title: title,
-      animation: google.maps.Animation.DROP,
-    });
-    google.maps.event.addListener(marker, 'click', toggleBounce);
-  }
-  function toggleBounce() {
-
-    if (marker.getAnimation() != null) {
-      marker.setAnimation(null);
-    } else {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
-  }
-
-  createMarker({lat: 34.120655, lng: -118.296199}, map, "event");
+  var infowindow;
+ 
   google.maps.event.addDomListener(window, 'load', $scope.mapInit());
+
+  EventData.getData().then(function(json){
+    $scope.events_json = json.data;
+    $scope.events = $scope.events_json.events;
+
+    function createMarker(coords, map, artist, venue, date, marker_text){
+      marker = new google.maps.Marker({
+        position: coords,
+        map: map,
+        artist: artist,
+        venue: venue,
+        date: date,
+        marker_text: marker_text,
+        animation: google.maps.Animation.DROP
+
+      });
+      // google.maps.event.addListener(marker, 'click', toggleBounce);
+    }
+    
+    for (var i = 0; i < $scope.events.length; i++) {
+      $scope.concert = $scope.events[i];
+      $scope.eventText = $scope.concert.venue;
+
+      $scope.markerText = '<h4>Artist: ' + $scope.concert.title + '</h4>' +
+        '<p class="addr-text">Venue: ' + $scope.concert.venue + '</p>';
+
+      infowindow = new google.maps.InfoWindow({
+        content: $scope.markerText
+      });
+
+      createMarker({lat: parseInt($scope.concert.lat), lng: parseInt($scope.concert.long)}, map, $scope.concert.title, $scope.concert.venue, $scope.concert.date, $scope.markerText);
+      
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+        infowindow.setContent(marker.marker_text);
+        console.log("test");
+      });
+    }
+  
+    
+
+  });
+  
+}]);
+
+mixnApp.factory('EventData', ['$http', function($http){
+  var events = {};
+
+  events.getData = function(){
+    var domain = window.location.hostname;
+    var url;
+    var hostname;
+    
+    if (domain == "localhost") {
+      hostname = "localhost:3000"
+    }
+    else {
+      hostname = "mixnmatch.herokuapp.com"
+    }
+
+    url = "http://"+ hostname + "/api/events/";
+    var endpoint = url; 
+    return $http({ method: 'GET', url: endpoint });
+  };
+
+  return events;
 
 }]);
