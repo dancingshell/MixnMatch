@@ -1,15 +1,10 @@
-<%# if current_user.profiles.first.nil? %>
-    <!-- if you are viewing your own page you can set up your profile -->
-    <%#= link_to "Empty profile... set it up!", new_profile_path %>
-<%# end %>
+<div class="row">
 
-<h1>MixnMatch!</h1>
+<div class="col-md-9">
 
-<br>
-
-<h3>Your Match Requests:</h3>
-
-<% if @matches.count > 0 %>
+<!-- Match Requests -->
+<% unless @matches.count == 0 %>
+    <h3>Match Requests</h3>
     <% @matches.each do |m| %>
     <% if @matches.index(m) == 0 || @matches.index(m) % 5 == 0 %><div class="row images"><% end %>
     <% profile = Profile.where(user_id: m.matcher_id).first %>
@@ -34,57 +29,28 @@
     </div>
     <% if (@matches.index(m)+1) % 5 == 0 || @matches.index(m) == @matches.count - 1 %></div><% end %>
     <% end %>
-<% else %>
-    <p>Sorry, no new requests today.</p>
+    <hr>
 <% end %>
 
+<!-- Filter Options -->
+<div class="filter">
+    <h3>Find People</h3>
+    <!-- <p><strong>Filter: </strong> {{filterItem.choice.name}}</p> -->
+    <label>Filter</label>
+    <select class="form-control" ng-model="filterItem.choice" ng-options="m.name for m in option.choices"></select>
+    &nbsp;
+    <label>Min Age</label>
+    <select class="form-control" ng-model="filterAgemin.choice" ng-options="m.age for m in ageminoption.choices"></select>
+    &nbsp;
+    <label>Max Age</label>
+    <select class="form-control" ng-model="filterAgemax.choice" ng-options="m.age for m in agemaxoption.choices"></select>
+    &nbsp;
+    <label>Distance</label>
+    <select class="form-control" ng-model="filterDistance.choice" ng-options="m.name for m in distanceOption.choices"></select>
+    <br>
+</div>
 
-
-<br><br>
-
-
-
-
-Your Conversations:
-
-<% @accepted.each do |m| %>
-
-<% @name = Profile.where(user_id: m.matcher_id).first.username %>
-    <%= @name %>
-    <%= link_to "VIEW PROFILE", user_path(@name) %> 
-    <%= link_to "Chat", match_path(m) %> 
-<% end %>
-
-<% @accepted2.each do |m| %>
-    <% @name = Profile.where(user_id: m.matcher_id).first.username %>
-    <%= @name %>
-    <%= link_to "VIEW PROFILE", user_path(@name) %> 
-    <%= link_to "Chat", match_path(m) %> 
-<% end %>
-
-
-
-
-
-<br><br>
-
-
-
-<label>Show Me</label>
-<select ng-model="filterItem.choice" ng-options="m.name for m in option.choices"></select>
-
-<label>Min. Age</label>
-<select ng-model="filterAgemin.choice" ng-options="m.age for m in ageminoption.choices"></select>
-
-<label>Max Age</label>
-<select ng-model="filterAgemax.choice" ng-options="m.age for m in agemaxoption.choices"></select>
-
-<p><strong>Selected Preference: </strong> {{filterItem.choice.name}}</p>
-
-
-
-
-
+<!-- Filter Results -->
 <div class="row images" ng-repeat="match in (matches.length/5 | row)">
     <div class="col-md-3 image-box" ng-repeat="match in matches.slice(5*$index, 5*$index + 5) | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter" ng-style="{'background-image':'url({{ match[0].avatar }})', 'background-size':'cover', 'background-position':'center'}" ng-hide="{{ match[0].id }} == <%= current_user.id %>">
         <div class="image-panel">
@@ -94,20 +60,53 @@ Your Conversations:
                 </a>
             </div>
             <div class="image-ctrl">
-                {{ match[1][2] }} / {{ match[1][1].gender[0] }} / {{ match[1][0] }}%
+                {{ match[1][0] }}%
             </div>
         </div>
     </div>
 </div>
 
+</div> <!-- end col-md-9 -->
 
 
+<div class="col-md-3 profile-side">
 
-<br><br><br><br>
+    <div class="preferences">
+
+        <h3>Conversations</h3>
+
+        <% @accepted.each do |m| %>
+            <% @name = Profile.where(user_id: m.matcher_id).first.username %>
+            <h4>&nbsp;<%= fa_icon 'minus' %>&nbsp; <%= link_to @name, match_path(m) %> <%= link_to (fa_icon 'comment'), match_path(m) %></h4>
+        <% end %>
+
+        <% @accepted2.each do |m| %>
+            <% @name = Profile.where(user_id: m.matcher_id).first.username %>
+            <h4>&nbsp;<%= fa_icon 'minus' %>&nbsp; <%= link_to @name, match_path(m) %> <%= link_to (fa_icon 'comment'), match_path(m) %></h4>
+        <% end %>
+
+    </div>
+
+</div> <!-- end col-md-4 -->
 
 
+</div> <!-- end row -->
 
-  
 
 <br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
