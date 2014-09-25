@@ -9,6 +9,9 @@ class SessionsController < ApplicationController
         # goes through User model
         user = User.from_omniauth(env['omniauth.auth'])
         session[:user_id] = user.id
+
+        facebook_artists
+
         if current_user.profiles.first.nil?
           redirect_to new_profile_path
         else
@@ -27,24 +30,21 @@ class SessionsController < ApplicationController
         facebook = UserAccount.from_omniauth(env['omniauth.auth'])
         facebook.user = current_user
         facebook.save!
+
+
         if facebook.save
-          redirect_to accounts_path
+          facebook_artists
         end
       # Spotify
       else
         spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
+        #raise spotify_user.inspect
         # Access private data
         spotify_account = UserAccount.where(user: current_user, provider: 'spotify').first
         spotify_account = UserAccount.create!(email: spotify_user.email,
           user: current_user, provider: 'spotify', oauth_token: spotify_user.credentials.token, refresh_token: spotify_user.credentials.refresh_token, oauth_expires_at: spotify_user.credentials.expires_at) unless spotify_account
-        spotify_tracks = spotify_user.saved_tracks(limit: 50, offset: 0)
-        spotify_tracks.each do |artist_track|
-          artist_track.artists.each do |band|
-            # Call method from application controller to pull artists from a provider  
-            get_artists(band.name, 'spotify')  
-          end 
-        end
-        redirect_to accounts_path
+        
+        spotify_artists
       end
     else
       
@@ -67,6 +67,48 @@ class SessionsController < ApplicationController
       end
     end
   end
+
+
+  def facebook_artists
+    if current_user
+             # finds user account of facebook if user logs in through mixnmatch
+      facebook_account = UserAccount.where(provider:"facebook", user: current_user).first if current_user.provider == "mixnmatch"
+
+      if current_user && current_user.provider == "facebook"
+        # get facebook music through facebook login
+        url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}/music?access_token=#{current_user.oauth_token}&method=GET&metadata=true&limit=1000&format=json")
+        @music = JSON.parse(url.body)
+        
+        @music["data"].each do |band|
+          # call method from application controller to pull artists from a provider  
+          get_artists(band["name"], "facebook")
+        end
+      elsif current_user && facebook_account
+        # get facebook music through user_account
+        url = HTTParty.get("https://graph.facebook.com/#{facebook_account.uid}/music?access_token=#{facebook_account.oauth_token}&method=GET&metadata=true&limit=1000&format=json")
+        @music = JSON.parse(url.body)
+        @music["data"].each do |band|
+          # call method from application controller to pull artists from a provider  
+          get_artists(band["name"], "facebook")
+        end
+      end
+      redirect_to accounts_path
+    end
+  end
+
+  def spotify_artists
+    spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
+    #spotify_account = UserAccount.where(user: current_user, provider: 'spotify').first
+    spotify_tracks = spotify_user.saved_tracks(limit: 50, offset: 0)
+    spotify_tracks.each do |artist_track|
+      artist_track.artists.each do |band|
+        # Call method from application controller to pull artists from a provider  
+        get_artists(band.name, 'spotify')  
+      end 
+    end
+    redirect_to accounts_path
+  end
+
 
   def destroy
     session[:user_id] = nil
