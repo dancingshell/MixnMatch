@@ -22,6 +22,8 @@ MixnMatch::Application.routes.draw do
   get "/api/matches" => "matches#match_json"
   get "/api/events" => "events#event_json"
 
+  get "/accounts/facebook", to: 'sessions#facebook_artists', as: :refresh_facebook
+  # get "/auth/:spotify_refresh/callback", to: 'sessions#spotify_artists', as: :refresh_spotify
 
   # Facebook/spotify callback for login
   match 'auth/:google_oauth2/callback', to: 'sessions#create', via: [:get, :post]

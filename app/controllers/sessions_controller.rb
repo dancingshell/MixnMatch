@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   
   def create
+
     # OmniAuth
     if env['omniauth.auth']
       # Facebook
@@ -66,7 +67,6 @@ class SessionsController < ApplicationController
     if current_user
              # finds user account of facebook if user logs in through mixnmatch
       facebook_account = UserAccount.where(provider:"facebook", user: current_user).first if current_user.provider == "mixnmatch"
-
       if current_user && current_user.provider == "facebook"
         # get facebook music through facebook login
         url = HTTParty.get("https://graph.facebook.com/#{current_user.uid}/music?access_token=#{current_user.oauth_token}&method=GET&metadata=true&limit=1000&format=json")
