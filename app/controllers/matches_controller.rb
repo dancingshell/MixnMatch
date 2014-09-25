@@ -15,16 +15,39 @@ class MatchesController < ApplicationController
   end
 
   def match_json
-    @user_artists = current_user.artists.map(&:name)
-    @users = User.all 
-    
+    @current_user_artists = current_user.artists.map(&:name)
+    # compares current user to all other users (self excluded)
+    @users = User.all - [current_user]
+   
     @love_results = {}
     @final_results = Hash.new
   
     @users.each do |u|
-      @count = u.artists.map(&:name) & @user_artists
+      @user_artists = u.artists.map(&:name)
+      # finds artists that are common between current user and other users
+      @count = @user_artists & @current_user_artists
       @profile = Profile.find_by(user_id: u.id)
-      @love_results[u] = [@count.count, @profile, u.profiles[0].age(u)]
+  
+      # secret match potion
+      if @current_user_artists.length > @user_artists.length
+        @large_count = @count.length.to_f / @current_user_artists.length
+        @small_count = @count.length.to_f / @user_artists.length
+      else
+        @large_count = @count.length.to_f / @user_artists.length
+        @small_count = @count.length.to_f / @current_user_artists.length
+      end
+      
+      @large_count = (@large_count + @small_count) / 2
+      @large_count *= 100
+      @small_count *= 100
+      @match_percent = (@large_count + @small_count) / 2 
+
+      # if number is devided by 0 (returns NaN) change to 0
+      @match_percent = 0 if @match_percent.nan?
+
+      # create hash of match% and profile info
+      @love_results[u] = [@match_percent.floor, @profile, u.profiles[0].age(u)]
+      # rank matches, highest first
       @sorted_results = @love_results.sort_by{|k, v| v[0]}.reverse       
     end
     render json: @sorted_results
@@ -50,7 +73,7 @@ class MatchesController < ApplicationController
   
 private
   def match_params
-    params.require(:match).permit(:matchee_id, :matcher_id, :status)
+    params.require(:match).permit(:matchee_id, :matcher_id, :status, :message_status)
   end
 
   def message_params

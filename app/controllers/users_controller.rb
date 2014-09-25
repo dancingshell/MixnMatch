@@ -16,11 +16,29 @@ class UsersController < ApplicationController
 
       @location = @profile.zipcode
 
-      # Not sure what is doing?
-      @user_artists = current_user.artists.map(&:name)
-      @friend_artists = @user.artists.map(&:name)
-      @count = @user_artists & @friend_artists
-      @love_results = @count.count
+      @current_user_artists = current_user.artists.map(&:name)
+      @user_artists = @user.artists.map(&:name)
+      # finds artists that are common between current user and other users
+      @count = @user_artists & @current_user_artists
+  
+      # secret match potion
+      if @current_user_artists.length > @user_artists.length
+        @large_count = @count.length.to_f / @current_user_artists.length
+        @small_count = @count.length.to_f / @user_artists.length
+      else
+        @large_count = @count.length.to_f / @user_artists.length
+        @small_count = @count.length.to_f / @current_user_artists.length
+      end
+      
+      @large_count = (@large_count + @small_count) / 2
+      @large_count *= 100
+      @small_count *= 100
+      @match_percent = (@large_count + @small_count) / 2
+
+      # if number is devided by 0 (returns NaN) change to 0
+      @match_percent = 0 if @match_percent.nan?
+      @match_percent = @match_percent.floor
+
     end
   end
 
