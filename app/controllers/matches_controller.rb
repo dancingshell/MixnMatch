@@ -11,6 +11,7 @@ class MatchesController < ApplicationController
     @matches = Match.where(:matchee_id => current_user, status: "requested") 
     @accepted = Match.where(:matchee_id => current_user, status: "accepted")
     @accepted2 = Match.where(:matcher_id => current_user, status: "accepted")
+    @profile = Profile.where(:user_id => current_user).first
   end
 
   def match_json
