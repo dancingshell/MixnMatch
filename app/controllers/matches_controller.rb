@@ -48,7 +48,12 @@ class MatchesController < ApplicationController
         @match_percent = 0 if @match_percent.nan?
 
         # create hash of match% and profile info
-        @love_results[u] = [@match_percent.floor, @profile, u.profiles[0].age(u) if u.profiles.first]
+        if u.profiles.first
+          age = u.profiles[0].age(u)
+        else
+          age = 25
+        end
+        @love_results[u] = [@match_percent.floor, @profile, age]
         # rank matches, highest first
         @sorted_results = @love_results.sort_by{|k, v| v[0]}.reverse  
       end     
