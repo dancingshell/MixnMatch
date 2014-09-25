@@ -1,14 +1,4 @@
-<!-- 
-<div class='choice1'>
-  <select ng-model="lookingfor" ng-options="o.name as (o.name) for o in option" placeholder="Show Me">
-    <option value="">Show Me</option>
-  </select>
-</div>
-
-<div class='choice2'>
-  <input type="text" size="25" placeholder="min age" data-ng-model="agemin" class="age">
-  <input type="text" size="25" placeholder="max age" data-ng-model="agemax" class="age">
-</div> -->
+<p ng-init="zipcode = <%= @profile.zipcode %>"></p>
 
   <label>Show Me</label>
    <select ng-model="filterItem.choice" ng-options="m.name for m in option.choices">
@@ -19,13 +9,16 @@
     <label>Max Age</label>
     <select ng-model="filterAgemax.choice" ng-options="m.age for m in agemaxoption.choices">
     </select>
+    <label>Distance From You</label>
+    <select ng-model="filterDistance.choice" ng-options="m.name for m in distanceOption.choices">
+    </select>
 
     <p>
       <strong>Selected Preference: </strong> {{filterItem.choice.name}}
     </p>
 
-<div ng-repeat="match in matches | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter" >
-  <li><strong>Name:</strong> {{match[0].name}} <strong> Matches:</strong> {{match[1][0]}} : <strong>Age:</strong> {{ match[1][2] }} </li>
+<div ng-repeat="match in finalMatches | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter | filter:distanceFilter" >
+  <li><strong>Name:</strong> {{match[0].name}} <strong> Matches:</strong> {{match[1][0]}} : <strong>Age:</strong> {{ match[1][2] }} <strong>Distance:</strong> {{ match[2] }} miles away : <strong> <a ng-href="http://localhost:3000/users/{{match[1][1].username}}">View Profile</a></strong></li>
 </div>
 
 
@@ -55,11 +48,13 @@ Your Conversations:
   <%= link_to "Chat", match_path(m) %> 
 <% end %>
 <% @accepted2.each do |m| %>
-<% @name = Profile.where(user_id: m.matcher_id).first.username %>
+<% @name = Profile.where(user_id: m.matchee_id).first.username %>
   <%= @name %>
   <%= link_to "VIEW PROFILE", user_path(@name) %> 
   <%= link_to "Chat", match_path(m) %> 
 <% end %>
+
+
 
 
     

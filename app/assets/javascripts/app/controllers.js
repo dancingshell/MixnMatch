@@ -57,18 +57,20 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
     $('#next').click(function() { $('#api').rdio().next(); });
   });
 
-  //Get Matches
+  //Variables
   $scope.matches = {};
-  $scope.lookingfor = {};
-  $scope.agemin = '';
-  $scope.agemax = '';
+  $scope.checkDistances = [];
+  $scope.matches = {};
+
+  //Filter options
   $scope.option = {
     choices: [
     {name: 'Show All'},
     {name: 'Just Friends', friendship: true},
     {name:'Men who like Women', gender: 'Male', orientation: 'Straight'}, 
     {name:'Women who like Men', gender: 'Female', orientation: 'Straight'},
-    {name:'Women who like Men', gender: 'Male', orientation: 'Straight'}
+    {name:'Men who like Men', gender: 'Male', orientation: 'Gay'},
+    {name:'Women who like Women', gender: 'Female', orientation: 'Gay'}
     ]
   };
 
@@ -84,6 +86,11 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
     ]
   };
   
+  $scope.distanceOption = {
+    choices: [
+    {name: 'Show All'}, {name: "Within 10 miles", distance: 10 }, {name: "Within 20 miles", distance: 20 }, {name: "Within 35 miles", distance: 35 }, {name: "Within 50 miles", distance: 50 }, {name: "Within 75 miles", distance: 75 }
+    ]
+  };
    //Mapped to the model to filter
   $scope.filterItem = {
     choice: $scope.option.choices[0]
@@ -96,7 +103,12 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
   $scope.filterAgemax = {
     choice: $scope.agemaxoption.choices[0]
   }
+
+  $scope.filterDistance = {
+    choice: $scope.distanceOption.choices[0]
+  }
   
+  //Filter Functions
   $scope.orientationFilter = function (m) {
     if ((m[1][1].gender === $scope.filterItem.choice.gender) && (m[1][1].orientation === $scope.filterItem.choice.orientation)) {
       return true;
@@ -130,15 +142,78 @@ mixnApp.controller('MixnMatchCtrl', ['$scope', 'MatchData', '$http', function($s
       return false;
     }
   }; 
+
+
+    $scope.distanceFilter = function (m) {
+    if (m[2] <= $scope.filterDistance.choice.distance)  {
+      return true;
+    } else if ($scope.filterDistance.choice.name === "Show All") {
+      return true;
+    }
+     else {
+      return false;
+    }
+  }; 
   
 
     
-
+  //Factory call to get match data back
   MatchData.getData().then(function(json){
     $scope.matches = json.data;
     $scope.matches = $scope.matches.matches
+    $scope.matchLocations();
+    console.log($scope.zipcode);
 
   });
+
+  // Calculate Distance
+  $scope.matchLocations = function(){
+    $scope.matches.forEach(function(m) {
+      console.log(m[1][1].zipcode)
+    $scope.checkDistances.push(m[1][1].zipcode.toString());
+    });
+    console.log($scope.checkDistances);
+    $scope.userzipcode = $scope.zipcode.toString();
+    $scope.calculateDistances([$scope.userzipcode], $scope.checkDistances);
+  };
+
+  $scope.calculateDistances = function(matcher, matchees) {
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+      {
+        origins: matcher,
+        destinations: matchees,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+      }, $scope.callback);
+  };
+
+  $scope.callback = function(response, status) {
+    console.log($scope.checkDistances)
+    if (status != google.maps.DistanceMatrixStatus.OK) {
+      alert('Error was: ' + status);
+    } else {
+      var origins = response.originAddresses;
+      var destinations = response.destinationAddresses;
+      $scope.finalMatches = $scope.matches
+      $scope.$apply()
+      for (var i = 0; i < origins.length; i++) {
+        var results = response.rows[i].elements;
+        for (var j = 0; j < results.length; j++) {
+          var miles = results[j].distance['text'].replace(/ mi/g, '').replace(/,/g, '')
+          if (miles === '1 ft') {
+            $scope.finalMatches[j].push('0');
+          } else {
+            $scope.finalMatches[j].push(miles);
+          }
+        }
+      }
+      $scope.$apply();
+      console.log($scope.finalMatches);
+    }
+  }
+
+
 
 
 }]);
