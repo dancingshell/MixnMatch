@@ -3,94 +3,39 @@
     <%#= link_to "Empty profile... set it up!", new_profile_path %>
 <%# end %>
 
-<br><br>
+<h1>MixnMatch!</h1>
 
+<br>
 
+<h3>Your Match Requests:</h3>
 
-<label>Show Me</label>
-<select ng-model="filterItem.choice" ng-options="m.name for m in option.choices"></select>
-
-<label>Min. Age</label>
-<select ng-model="filterAgemin.choice" ng-options="m.age for m in ageminoption.choices"></select>
-
-<label>Max Age</label>
-<select ng-model="filterAgemax.choice" ng-options="m.age for m in agemaxoption.choices"></select>
-
-<p><strong>Selected Preference: </strong> {{filterItem.choice.name}}</p>
-
-
-<div ng-repeat="match in matches | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter" >
-
-    <strong>Name:</strong> {{match[0].name}}  ( <strong>Age:</strong> {{ match[1][2] }} )
-    <br>
-
-    <strong> Matches:</strong> {{match[1][0]}}
-
-    <br>
-    <br>
-
-
-
-
-
-
-
-</div>
-
-
-
-<div class="row" data-ng-repeat="match in (matches.length/5 | row)">
-
-    <div class="col-md-3" data-ng-repeat="match in matches.slice(5*$index, 5*$index + 5) | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter">
-
-        <div class="artist-image" ng-style="{'background-image':'url({{ match[0].avatar }})', 'background-size':'cover', 'background-position':'center'}">
-            
-            <div class="artist-panel">
-            alkseflaksneflkn
+<% if @matches.count > 0 %>
+    <% @matches.each do |m| %>
+    <% if @matches.index(m) == 0 || @matches.index(m) % 5 == 0 %><div class="row images"><% end %>
+    <% profile = Profile.where(user_id: m.matcher_id).first %>
+    <div class="col-sm-3 image-box" ng-style="{'background-image':'url(<%= profile.user.avatar %>)', 'background-size':'cover', 'background-position':'center'}">
+        <div class="image-panel">
+            <%= link_to profile.username, user_path(profile.username), class: 'image-name' %>
+            <div class="image-ctrl">
+                <%= form_for m do |f| %>
+                    <%= f.hidden_field :status, value: 'accepted' %>
+                    <%= button_tag type: 'submit' do %>
+                        <%= fa_icon 'check' %>
+                    <% end %>
+                <% end %>
+                <%= form_for m do |f| %>
+                    <%= f.hidden_field :status, value: 'block' %>
+                    <%= button_tag type: 'submit' do %>
+                        <%= fa_icon 'times' %>
+                    <% end %>&nbsp;
+                <% end %>
             </div>
-
         </div>
-
     </div>
-
-</div>
-
-
-<div class="col-sm-3 artist-image" ng-style="{'background-image':'url({{ match[0].avatar }})', 'background-size':'cover', 'background-position':'center'}">
-    <div class="artist-panel">
-        <div class="artist-ctrl"></div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-<br><br><br><br>
-
-Your Match Requests:
-<% @matches.each do |m| %>
-    <li>
-        <% @name = Profile.where(user_id: m.matcher_id).first.username %>
-        <%= @name %>
-
-        <%= link_to "VIEW PROFILE", user_path(@name) %>
-        
-        <%= form_for m do |f| %>
-            <%= f.hidden_field :status, :value => "accepted" %>
-            <%= f.submit "Accept Request" %>
-        <% end %>
-
-        <%= form_for m do |f| %>
-            <%= f.hidden_field :status, :value => "block" %>
-            <%= f.submit "Block Request" %>
-        <% end %>
-    </li>
+    <% if (@matches.index(m)+1) % 5 == 0 || @matches.index(m) == @matches.count - 1 %></div><% end %>
+    <% end %>
+<% else %>
+    <p>Sorry, no new requests today.</p>
 <% end %>
 
 
@@ -124,30 +69,44 @@ Your Conversations:
 <br><br>
 
 
-<% @artists.each do |a| %>
-<% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row artists"><% end %>
-<div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
-    <div class="artist-panel">
-        <%= link_to truncate(a.name, length: 18), artist_path(a), class: 'artist-name' %>
-        <div class="artist-ctrl">
-            <%= link_to (fa_icon 'volume-up'), artist_path(a) %>&nbsp;
-            <% if current_artists.include? a %>
-                <%= link_to (fa_icon 'heart'), artist_user_artist_path(a.id, current_user), method: :delete %>
-            <% else %>
-                <%= form_for [a, @add_artist] do |f| %>
-                    <%= f.hidden_field :user_id, value: current_user.id %>
-                    <%= f.hidden_field :artist_id, value: a.id %>
-                    <%= f.hidden_field :provider, value: 'provider' %>
-                    <%= button_tag type: 'submit' do %>
-                        <%= fa_icon 'heart' %>
-                    <% end %>
-                <% end %>
-            <% end %>
+
+<label>Show Me</label>
+<select ng-model="filterItem.choice" ng-options="m.name for m in option.choices"></select>
+
+<label>Min. Age</label>
+<select ng-model="filterAgemin.choice" ng-options="m.age for m in ageminoption.choices"></select>
+
+<label>Max Age</label>
+<select ng-model="filterAgemax.choice" ng-options="m.age for m in agemaxoption.choices"></select>
+
+<p><strong>Selected Preference: </strong> {{filterItem.choice.name}}</p>
+
+
+
+
+
+<div class="row images" ng-repeat="match in (matches.length/5 | row)">
+    <div class="col-md-3 image-box" ng-repeat="match in matches.slice(5*$index, 5*$index + 5) | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter" ng-style="{'background-image':'url({{ match[0].avatar }})', 'background-size':'cover', 'background-position':'center'}" ng-hide="{{ match[0].id }} == <%= current_user.id %>">
+        <div class="image-panel">
+            <div class="image-name">
+                <a ng-href="/users/{{ match[1][1].username }}">
+                    {{ match[1][1].username }}
+                </a>
+            </div>
+            <div class="image-ctrl">
+                {{ match[1][2] }} / {{ match[1][1].gender[0] }} / {{ match[1][0] }}%
+            </div>
         </div>
     </div>
 </div>
-<% if (@artists.index(a)+1) % 5 == 0 || @artists.index(a) == @artists.count - 1 %></div><% end %>
-<% end %>
+
+
+
+
+<br><br><br><br>
+
+
+
   
 
 <br><br><br>

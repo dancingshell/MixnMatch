@@ -1,3 +1,9 @@
-#map-canvas {
+// Google Map
+.map {
+  height: 500px;
+
+  #map-canvas {
     height: 100%;
+    width: 100%;
+  }
 }

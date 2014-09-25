@@ -5,7 +5,7 @@ class UserArtistsController < ApplicationController
   	user_artist.user = current_user
   	user_artist.provider = "MixnMatch"
   	if user_artist.save
-  		redirect_to artists_path
+  		redirect_to :back
   	else
   		render 'new'
   	end
@@ -23,7 +23,7 @@ class UserArtistsController < ApplicationController
 
   def destroy
     UserArtist.find_by(user_id: current_user.id, artist_id: params[:artist_id]).destroy
-    redirect_to artists_path
+    redirect_to :back
   end
 
   private
