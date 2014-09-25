@@ -1,14 +1,10 @@
-<h1>Matches#show</h1>
-<p>Find me in app/views/matches/show.html.erb</p>
 
-<h1>Chat</h1>
-
-<ul id="chat">
+<div id="chat">
  
 
   <%= render @messages %>
 
-</ul>
+</div>
 
 <%= form_for Message.new, remote: true do |f| %>
   <%= f.text_field :content %>
@@ -23,3 +19,4 @@
 
 
 <%= subscribe_to "/messages/new" %>
+
