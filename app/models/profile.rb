@@ -1,6 +1,8 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
 
+  validates :birthday, presence: true
+
   def age(user)
     birth_year = user.profiles.first.birthday.year
     birth_month = user.profiles.first.birthday.month
