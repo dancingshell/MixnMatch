@@ -52,7 +52,7 @@
 
 <!-- Filter Results -->
 <div class="row images" ng-repeat="match in (matches.length/5 | row)">
-    <div class="col-md-3 image-box" ng-repeat="match in matches.slice(5*$index, 5*$index + 5) | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter" ng-style="{'background-image':'url({{ match[0].avatar }})', 'background-size':'cover', 'background-position':'center'}" ng-hide="{{ match[0].id }} == <%= current_user.id %>">
+    <div class="col-md-3 image-box" ng-repeat="match in matches.slice(5*$index, 5*$index + 5) | filter:orientationFilter | filter:ageminFilter | filter:agemaxFilter" ng-style="{'background-image':'url({{ match[0].avatar }})', 'background-size':'cover', 'background-position':'center'}">
         <div class="image-panel">
             <div class="image-name">
                 <a ng-href="/users/{{ match[1][1].username }}">
