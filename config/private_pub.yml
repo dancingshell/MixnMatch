@@ -6,5 +6,5 @@ test:
   secret_token: "secret"
 production:
   server: "http://mixnmatch.herokuapp.com/faye"
-  secret_token: "b745d11f27421af59153ba9d7d153e7d34520cb333a8924b34c683602f81ec62"
+  secret_token: "batkaro"
   signature_expiration: 86400 # one day
