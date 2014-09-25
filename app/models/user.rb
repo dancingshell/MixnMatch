@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :profiles
   has_secure_password
 
+  validates :name, presence: true
+  validates :email, presence: true
   validates :avatar, presence: true
 
   
