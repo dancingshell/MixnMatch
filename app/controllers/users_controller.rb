@@ -8,9 +8,13 @@ class UsersController < ApplicationController
     if Profile.find_by(username: params[:id]).nil?
       redirect_to root_path
     else
+      @match = Match.new
       @user = Profile.find_by(username: params[:id]).user
       @profile = Profile.find_by(user_id: @user.id)
       @artists = @user.artists.sort_by{ |alpha| url_encode(alpha.name.downcase) }
+      @add_artist = UserArtist.new
+
+      @location = @profile.zipcode
 
       # Not sure what is doing?
       @user_artists = current_user.artists.map(&:name)
