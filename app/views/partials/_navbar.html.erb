@@ -23,15 +23,11 @@
                         </div>
                     </form>
                 </li>
-                <% unless current_user.profiles.first.nil? %>
-                    <a class="navbar-text" href="<%= user_path(current_user.profiles.first.username) %>">My Profile</a>
-                <% end %>
-                <a class="navbar-text" href="<%= root_path %>">My Artists</a>
-                <a class="navbar-text" href="<%= artists_path %>">Browse Artists</a>
-                <a class="navbar-text" href="<%= users_path %>">Browse Users</a>
-                <a class="navbar-text" href="<%= events_path %>">Events</a>
-                <a class="navbar-text" href="#">Favorites</a>
-           
+                <!-- Navbar Links -->
+                <li class="navbar-link"><%= link_to 'Browse Artists', artists_path %></li>
+                <li class="navbar-link"><%= link_to 'Find Users', users_path %></li>
+                <li class="navbar-link"><%= link_to 'Events', events_path %></li>
+                <li class="navbar-link"><%= link_to 'Favorites', root_path %></li>
             </ul>
 
             <!-- Collapse Toggling -->
@@ -43,9 +39,14 @@
                     <!-- Logged In -->
                     <% if current_user %>
                         <% unless current_user.profiles.first.nil? %>
-                            <!-- Welcome -->
-                            <li class="navbar-text">
-                                <%= current_user.profiles.first.username %>
+                            <!-- User Profile and Settings -->
+                            <li class="navbar-avatar">
+                                <a href="<%= user_path(current_user.profiles.first.username) %>">
+                                    <div class="avatar" ng-style="{'background-image':'url(<%= current_user.avatar %>)', 'background-size':'cover', 'background-position':'center'}"></div>
+                                </a>
+                            </li>
+                            <li class="navbar-link">
+                                <%= link_to current_user.profiles.first.username, user_path(current_user.profiles.first.username) %>
                             </li>
                         <% end %>
                         <!-- Settings -->

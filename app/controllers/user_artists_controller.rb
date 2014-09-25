@@ -22,8 +22,7 @@ class UserArtistsController < ApplicationController
   end
 
   def destroy
-    @artist = UserArtist.find(params[:artist_id])
-    @artist.destroy
+    UserArtist.find_by(user_id: current_user.id, artist_id: params[:artist_id]).destroy
     redirect_to artists_path
   end
 

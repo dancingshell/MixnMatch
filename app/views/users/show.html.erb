@@ -11,6 +11,12 @@
     <%= f.submit "Request to Chat" %>
 <% end %>
 
+<h4>TEST</h4>
+<%= @location %>
+<script>
+
+</script>
+
 
 
 
@@ -41,13 +47,26 @@
 
     <% @artists.each do |a| %>
     <% if @artists.index(a) == 0 || @artists.index(a) % 5 == 0 %><div class="row artists"><% end %>
-    <a href="<%= artist_path(a) %>">
-        <div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
-            <div class="artist-title">
-                <p><%= a.name %></p>
+    <div class="col-sm-3 artist-image" ng-style="{'background-image':'url(<%= a.image %>)', 'background-size':'cover', 'background-position':'center'}">
+        <div class="artist-panel">
+            <%= link_to truncate(a.name, length: 20), artist_path(a), class: 'artist-name' %>
+            <div class="artist-ctrl">
+                <%= link_to (fa_icon 'volume-up'), artist_path(a) %>&nbsp;
+                <% if current_artists.include? a %>
+                    <%= link_to (fa_icon 'minus'), artist_user_artist_path(a.id, current_user), method: :delete %>
+                <% else %>
+                    <%= form_for [a, @add_artist] do |f| %>
+                        <%= f.hidden_field :user_id, value: current_user.id %>
+                        <%= f.hidden_field :artist_id, value: a.id %>
+                        <%= f.hidden_field :provider, value: 'provider' %>
+                        <%= button_tag type: 'submit' do %>
+                            <%= fa_icon 'plus' %>
+                        <% end %>
+                    <% end %>
+                <% end %>
             </div>
         </div>
-    </a>
+    </div>
     <% if (@artists.index(a)+1) % 5 == 0 || @artists.index(a) == @artists.count - 1 %></div><% end %>
     <% end %>
 
