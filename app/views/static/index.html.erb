@@ -81,7 +81,7 @@
         <% end %>
 
         <% @accepted2.each do |m| %>
-            <% @name = Profile.where(user_id: m.matcher_id).first.username %>
+            <% @name = Profile.where(user_id: m.matchee_id).first.username %>
             <h4>&nbsp;<%= fa_icon 'minus' %>&nbsp; <%= link_to @name, match_path(m) %> <%= link_to (fa_icon 'comment'), match_path(m) %></h4>
         <% end %>
 
