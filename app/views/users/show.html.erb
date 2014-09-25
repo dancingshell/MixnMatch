@@ -63,7 +63,7 @@
 
 <% end %>
 
-</div> <!-- end col-md-7 -->
+</div> <!-- end col-md-9 -->
 
 
 
@@ -73,7 +73,7 @@
 
     <div class="match">
         <% unless current_user == @user %>
-            <h1><%= @love_results %><strike>%</strike></h1>
+            <h1><%= @match_percent %>%</h1>
             <h3>Musical Match</h3>
             <br>
             <%= form_for @match do |f| %>

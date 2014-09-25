@@ -57,7 +57,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id.to_s
       redirect_to new_profile_path
     else
-      render 'new'
+      redirect_to :back
     end
   end
 
