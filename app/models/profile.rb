@@ -1,7 +1,12 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
 
+  validates :summary, presence: true
   validates :birthday, presence: true
+  validates :orientation, presence: true
+  validates :gender, presence: true
+  validates :zipcode, presence: true
+  validates :username, presence: true
 
   def age(user)
     birth_year = user.profiles.first.birthday.year
