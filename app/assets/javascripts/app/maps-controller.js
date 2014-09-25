@@ -49,7 +49,6 @@ mixnApp.controller('MapCtrl', ['$scope', '$http', 'EventData', function($scope, 
       // google.maps.event.addListener(marker, 'click', toggleBounce);
     }
 
-    
     for (var i = 0; i < $scope.events.length; i++) {
 
       $scope.concert = $scope.events[i];
@@ -61,6 +60,18 @@ mixnApp.controller('MapCtrl', ['$scope', '$http', 'EventData', function($scope, 
   
       $scope.new_marker = createMarker({lat: parseInt($scope.concert.lat), lng: parseInt($scope.concert.long)}, map, $scope.concert.title, $scope.concert.venue, $scope.concert.date, $scope.marker_text, $scope.concert.id)   
     }
+
+    function AutoCenter() {
+      //  Create a new viewpoint bound
+      var bounds = new google.maps.LatLngBounds();
+      //  Go through each...
+      $.each(markers, function (index, marker) {
+      bounds.extend(marker.position);
+      });
+      //  Fit these bounds to the map
+      map.fitBounds(bounds);
+    }
+    AutoCenter();
 
   });
   
