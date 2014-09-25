@@ -20,6 +20,7 @@ MixnMatch::Application.routes.draw do
   end
 
   get "/api/matches" => "matches#match_json"
+  get "/api/events" => "events#event_json"
 
 
   # Facebook/spotify callback for login

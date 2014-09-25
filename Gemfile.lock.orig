@@ -57,8 +57,12 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     connection_pool (2.0.0)
+<<<<<<< HEAD
+    diff-lcs (1.2.5)
+=======
     cookiejar (0.3.2)
     daemons (1.1.9)
+>>>>>>> d801cc3d0dc83f53055ec1ad7b69234de6a09f2a
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
@@ -194,6 +198,22 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     rest_client (1.7.3)
       netrc (~> 0.7.7)
+    rspec-core (3.0.4)
+      rspec-support (~> 3.0.0)
+    rspec-expectations (3.0.4)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.0.0)
+    rspec-mocks (3.0.4)
+      rspec-support (~> 3.0.0)
+    rspec-rails (3.0.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.0.0)
+      rspec-expectations (~> 3.0.0)
+      rspec-mocks (~> 3.0.0)
+      rspec-support (~> 3.0.0)
+    rspec-support (3.0.4)
     rspotify (1.2.0)
       omniauth-oauth2 (~> 1.1)
       rest_client (~> 1.7)
@@ -250,11 +270,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-<<<<<<< HEAD
-    websocket-driver (0.3.4)
-=======
     uuidtools (2.1.5)
->>>>>>> 1bec5caca0b5dbe5325ac9cf7a3ab6599e6da41c
+    websocket-driver (0.3.4)
 
 PLATFORMS
   ruby
@@ -282,6 +299,7 @@ DEPENDENCIES
   rails (= 4.0.4)
   rails_12factor
   rdio_api
+  rspec-rails (~> 3.0.0)
   rspotify (~> 1.2.0)
   sass-rails (~> 4.0.2)
   sdoc
