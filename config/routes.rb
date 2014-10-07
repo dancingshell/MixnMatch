@@ -42,5 +42,6 @@ MixnMatch::Application.routes.draw do
 
   # Root
   root 'static#index'
+  get '/home', to: 'static#welcome'
 
 end
