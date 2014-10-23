@@ -53,30 +53,42 @@ $(function() {
 });
 </script>
 
-<div class="row">
-  <h1 class="text-center">Sign Up</h1>
-  <div class="col-md-4 col-md-offset-4">  
-    <br>
-    <%= form_for(@user, html: { class: "directUpload" }) do |f| %>
-      <%= f.text_field :name, placeholder: 'First and Last Name', class: 'form-control' %>
-      <%= f.email_field :email, placeholder: 'Email Address', class: 'form-control' %>
-      <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
-      <%= f.password_field :password_confirmation, placeholder: 'Retype Password', class: 'form-control' %>
-      <%= f.hidden_field :provider, value: 'mixnmatch' %>
-      <div class="field">
-    		<%= f.file_field :avatar, class: 'upload', multiple: true, placeholder: "Chose a file to start searching for love..." %>
-      </div>
-      <%= f.submit 'Sign Up', class: 'btn btn-primary' %>
-    <% end %>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= image_tag "record-01.png", class: "welcome-image text-center" %>
+    </div>
+
   </div>
+  <div class="row">
+    <div class="slogan text-center">Find your song mate!</div>
+    <div class="row text-center">
+      <div class="welcome-heart text-center col-md-4 col-md-offset-4">
+        <div class="welcome-description text-center">Import your favorite artists from Spotify, Rdio, Last.fm, and Facebook.<br>Connect with others with similar music tastes to find love and new friends.<br>Find nearby concerts and ask your matches on dates!<br>Spam free! Only get messages from users who you like back.<br></div>
+      </div>
+    </div>
+    <h1 class="text-center">Sign Up</h1>
+    <div class="col-md-4 col-md-offset-4">  
+      <br>
+      <%= form_for(@user, html: { class: "directUpload" }) do |f| %>
+        <%= f.text_field :name, placeholder: 'First and Last Name', class: 'form-control' %>
+        <%= f.email_field :email, placeholder: 'Email Address', class: 'form-control' %>
+        <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+        <%= f.password_field :password_confirmation, placeholder: 'Retype Password', class: 'form-control' %>
+        <%= f.hidden_field :provider, value: 'mixnmatch' %>
+        <div class="field">Add profile photo
+      		<%= f.file_field :avatar, class: 'upload', multiple: true, placeholder: "Chose a file to start searching for love..." %>
+        </div>
+        <%= f.submit 'Sign Up', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
 
-<br><br>
+  <br><br>
 
-<p>or signup via Facebook</p>
+  <p>or signup via Facebook</p>
 
-<a href="/auth/facebook" id="sign_in" data-scope="user_likes, user_birthday, user_location, public_profile, email"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
+  <a href="/auth/facebook" id="sign_in" data-scope="user_likes, user_birthday, user_location, public_profile, email"><img src="http://2.bp.blogspot.com/-M_AWtMw64HI/Ud9gdzCUNBI/AAAAAAAAAVM/EExpNNQMFI4/s1600/button1.png" style="height:35px;"></a>
 
-<br><br>
+  <br><br>
 
-<p>Already a member?</p>
-<p><a data-toggle="modal" data-target="#login" style="cursor: pointer;"><b>Log In!</b></a></p>
+  <p>Already a member?</p>
